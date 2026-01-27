@@ -4,5 +4,6 @@ import tailwindcss from "@tailwindcss/vite"
 
 // https://vite.dev/config/
 export default defineConfig({
+  base:'/Recipe-Box/',
   plugins: [react(), tailwindcss()],
 })
