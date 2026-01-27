@@ -2,10 +2,17 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Book, House, Heart, List, PlusCircle, Menu, X } from "lucide-react";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+// Type for each nav item
+interface NavLinkItem {
+    to: string;
+    label: string;
+    icon: typeof House;
+}
 
-  const navLinks = [
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const navLinks: NavLinkItem[ ] = [
     { to: "/", label: "Home", icon: House },
     { to: "/favorites", label: "Favorites", icon: Heart },
     { to: "/shopping-list", label: "Shopping List", icon: List },
@@ -42,7 +49,7 @@ export default function Navbar() {
                 <NavLink
                   to={to}
                   className={({ isActive }) =>
-                    `flex items-center gap-2 px-4 py-2 rounded-full transition
+                    `flex items-center gap-2 px-4 py-2 rounded-full transition whitespace-nowrap
                      ${
                        isActive
                          ? "bg-red-100 text-red-700"
@@ -57,7 +64,8 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <button className="flex items-center gap-2 rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600">
+          <button className="flex items-center gap-2 whitespace-nowrap
+ rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600">
             <PlusCircle size={18} />
             Add Recipe
           </button>
@@ -92,7 +100,7 @@ export default function Navbar() {
             <li>
               <button
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 w-full justify-center rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600"
+                className="flex items-center gap-2 whitespace-nowrap w-full justify-center rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600"
               >
                 <PlusCircle size={18} />
                 Add Recipe
