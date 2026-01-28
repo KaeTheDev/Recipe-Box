@@ -3,7 +3,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 
 export default function FeaturedRecipesSection() {
   return (
-    <section className="flex justify-center bg-gray-50 py-10 px-4">
+    <section className="flex justify-center bg-orange-50 py-10 px-4">
       <div className="w-full max-w-5xl flex flex-col items-center">
         {/* Header */}
         <div className="w-full mb-6">

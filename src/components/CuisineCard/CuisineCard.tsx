@@ -48,7 +48,7 @@ export default function CuisineCard() {
       />
 
       {/* Gradient overlay (better than flat black) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
       {/* Text overlay */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-3 text-center">
