@@ -23,7 +23,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Book size={40} className="text-red-500" />
+          <Book size={40} className="text-orange-500" />
           <div>
             <h1 className="text-xl font-bold">Recipe Box</h1>
             <p className="text-sm text-gray-600">
@@ -52,8 +52,8 @@ export default function Navbar() {
                     `flex items-center gap-2 px-4 py-2 rounded-full transition whitespace-nowrap
                      ${
                        isActive
-                         ? "bg-red-100 text-red-700"
-                         : "text-red-700 hover:bg-red-50"
+                         ? "bg-orange-100 text-orange-700"
+                         : "text-orange-700 hover:bg-red-50"
                      }`
                   }
                 >
