@@ -2,55 +2,63 @@ import { Clock, ChefHat, Flame } from "lucide-react";
 
 export default function RecipeDetails() {
   return (
-    <section className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-orange-50 rounded-lg shadow-md flex flex-col gap-4">
+    <section className="bg-white rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8">
       {/* Stats Row */}
-      <div className="flex flex-row justify-start gap-8 text-gray-700">
-        {/* Prep Time */}
-        <div className="flex flex-col items-center sm:items-start">
-          <Clock size={20} className="text-orange-500 mb-1" />
-          <p className="font-semibold text-sm sm:text-base">35</p>
-          <p className="text-xs sm:text-sm text-gray-500">minutes</p>
-        </div>
-
-        {/* Servings with Stepper */}
-        <div className="flex flex-col items-center sm:items-start">
-          <ChefHat size={20} className="text-orange-500 mb-1" />
-          <div className="flex items-center gap-2 mt-1">
-            <button
-              className=" text-sm font-semibold hover:bg-gray-200"
-              type="button"
-            >
-              –
-            </button>
-            <span className="font-semibold text-sm sm:text-base">4</span>
-            <button
-              className=" text-sm font-semibold hover:bg-gray-200"
-              type="button"
-            >
-              +
-            </button>
+      <div className="flex justify-center">
+        <div className="flex gap-10 text-gray-700">
+          {/* Prep Time */}
+          <div className="flex flex-col items-center">
+            <Clock size={20} className="text-orange-500 mb-1" />
+            <p className="font-semibold text-sm sm:text-base">35</p>
+            <p className="text-xs sm:text-sm text-gray-500">minutes</p>
           </div>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">servings</p>
-        </div>
 
-        {/* Difficulty */}
-        <div className="flex flex-col items-center sm:items-start">
-          <Flame size={20} className="text-orange-500 mb-1" />
-          <p className="font-semibold text-sm sm:text-base">Easy</p>
-          <p className="text-xs sm:text-sm text-gray-500">level</p>
+          {/* Servings */}
+          <div className="flex flex-col items-center">
+            <ChefHat size={20} className="text-orange-500 mb-1" />
+            <div className="flex items-center gap-3 mt-1">
+              <button
+                type="button"
+                className="w-6 h-6 rounded-full text-sm font-semibold hover:bg-gray-200"
+              >
+                –
+              </button>
+              <span className="font-semibold text-sm sm:text-base">4</span>
+              <button
+                type="button"
+                className="w-6 h-6 rounded-full text-sm font-semibold hover:bg-gray-200"
+              >
+                +
+              </button>
+            </div>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">servings</p>
+          </div>
+
+          {/* Difficulty */}
+          <div className="flex flex-col items-center">
+            <Flame size={20} className="text-orange-500 mb-1" />
+            <p className="font-semibold text-sm sm:text-base">Easy</p>
+            <p className="text-xs sm:text-sm text-gray-500">level</p>
+          </div>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-sm sm:text-base text-gray-700">
+      <p className="mt-4 text-center text-sm sm:text-base text-gray-700 max-w-xl mx-auto">
         Creamy, cheesy comfort food done right.
       </p>
 
       {/* Tags */}
-      <div className="flex flex-wrap gap-2 mt-2">
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">#quick</span>
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">#family</span>
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">#comfort</span>
+      <div className="mt-3 flex justify-center flex-wrap gap-2">
+        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
+          #quick
+        </span>
+        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
+          #family
+        </span>
+        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
+          #comfort
+        </span>
       </div>
     </section>
   );

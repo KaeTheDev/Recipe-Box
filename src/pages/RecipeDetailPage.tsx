@@ -5,13 +5,49 @@ import RecipeIngredients from "../components/RecipeIngredients/RecipeIngredients
 import RecipeActions from "../components/RecipeActions/RecipeActions"
 
 export default function RecipeDetailPage() {
-    return(
-        <>
+    return (
+      <div className="min-h-screen bg-[#fff7f0]">
+        {/* Hero */}
         <RecipeDetailHero />
-        <RecipeDetails />
-        <RecipeIngredients />
-        <RecipeInstructions />
-        <RecipeActions />
-        </>
-    )
-}
+  
+        {/* Content */}
+        <div
+          className="
+            max-w-6xl mx-auto
+            px-4 sm:px-6 lg:px-8
+            mt-8 md:mt-12
+            pb-16
+          "
+        >
+          <div
+            className="
+              flex flex-col
+              lg:flex-row
+              gap-6
+            "
+          >
+            {/* LEFT COLUMN */}
+            <div className="flex-1 flex flex-col gap-6">
+              <RecipeDetails />
+              <RecipeInstructions />
+            </div>
+  
+            {/* RIGHT COLUMN */}
+            <aside
+              className="
+                w-full
+                lg:w-[320px]
+                flex flex-col
+                gap-6
+                lg:mt-6
+              "
+            >
+              <RecipeActions />
+              <RecipeIngredients />
+            </aside>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
