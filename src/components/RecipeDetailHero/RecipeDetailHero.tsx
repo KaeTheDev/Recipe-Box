@@ -17,9 +17,8 @@ export default function RecipeDetailHero() {
       <div className="absolute bottom-4 left-4 z-10 text-white">
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-2">
-          <span className="bg-white/20 px-2 py-1 text-xs rounded-full">#quick</span>
-          <span className="bg-white/20 px-2 py-1 text-xs rounded-full">#family</span>
-          <span className="bg-white/20 px-2 py-1 text-xs rounded-full">#comfort</span>
+          <span className="bg-white/20 px-2 py-1 text-xs rounded-full">Easy</span>
+          <span className="bg-white/20 px-2 py-1 text-xs rounded-full">Thai</span>
         </div>
 
         {/* Recipe Name */}
