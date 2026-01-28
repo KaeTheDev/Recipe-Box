@@ -3,9 +3,10 @@ import MacandCheese from "../../assets/MacandCheese.png";
 
 export default function RecipeCard() {
   return (
-    <div className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden
-                    w-full max-w-70 sm:max-w-75 lg:max-w-[320px]">
-      
+    <div
+      className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden
+                    w-full max-w-70 sm:max-w-75 lg:max-w-[320px]"
+    >
       {/* Difficulty Badge */}
       <div className="absolute top-2 left-2 bg-yellow-400 text-black px-2 py-1 text-xs font-semibold rounded">
         Medium
