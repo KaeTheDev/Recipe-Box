@@ -1,25 +1,26 @@
-import AllRecipesSection from "../components/AllRecipesSection/AllRecipesSection";
-import ExploreCuisineSection from "../components/ExploreCuisineSection/ExploreCuisineSection";
-import FeaturedRecipesSection from "../components/FeaturedRecipesSection/FeaturedRecipesSection";
 import HeroSection from "../components/HeroSection/HeroSection";
 import QuickPickSection from "../components/QuickPickSection/QuickPickSection";
+import FeaturedRecipesSection from "../components/FeaturedRecipesSection/FeaturedRecipesSection";
+import ExploreCuisineSection from "../components/ExploreCuisineSection/ExploreCuisineSection";
+import AllRecipesSection from "../components/AllRecipesSection/AllRecipesSection";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="flex flex-col">
+      {/* Hero */}
       <HeroSection />
 
-      <section className="px-4 sm:px-6 lg:px-8 py-10 bg-orange-50 mb-5">
-        <QuickPickSection />
-      </section>
+      {/* Quick Picks */}
+      <QuickPickSection />
 
-      <section className="px-4 sm:px-6 lg:px-8 py-10 bg-orange-50 mb-5">
-        <FeaturedRecipesSection />
-      </section>
+      {/* Featured Recipes */}
+      <FeaturedRecipesSection />
 
-    <ExploreCuisineSection />
+      {/* Explore by Cuisine */}
+      <ExploreCuisineSection />
 
-    <AllRecipesSection />
+      {/* All Recipes */}
+      <AllRecipesSection />
     </main>
   );
 }
