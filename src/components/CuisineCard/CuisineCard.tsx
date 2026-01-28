@@ -1,31 +1,3 @@
-// import American from "../../assets/American.png";
-
-// export default function CuisineCard() {
-//   return (
-//     <div className="relative w-40 sm:w-48 md:w-56 h-32 sm:h-36 md:h-40 rounded-lg overflow-hidden shadow-md">
-//       {/* Background image */}
-//       <img
-//         src={American}
-//         alt="American"
-//         className="absolute inset-0 w-full h-full object-cover"
-//       />
-
-//       {/* Optional overlay for contrast */}
-//       <div className="absolute inset-0 bg-black/30" />
-
-//       {/* Text overlay */}
-//       <div className="absolute inset-0 z-10 flex items-end p-3">
-//         <div className="flex flex-col">
-//         <span className="text-white text-center font-semibold text-sm sm:text-base">
-//           American
-//         </span>
-//         <span className="text-gray text-center text-sm">1 recipe</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import American from "../../assets/American.png";
 
 export default function CuisineCard() {

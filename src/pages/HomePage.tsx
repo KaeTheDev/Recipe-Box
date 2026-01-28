@@ -1,3 +1,4 @@
+import AllRecipesSection from "../components/AllRecipesSection/AllRecipesSection";
 import ExploreCuisineSection from "../components/ExploreCuisineSection/ExploreCuisineSection";
 import FeaturedRecipesSection from "../components/FeaturedRecipesSection/FeaturedRecipesSection";
 import HeroSection from "../components/HeroSection/HeroSection";
@@ -17,6 +18,8 @@ export default function HomePage() {
       </section>
 
     <ExploreCuisineSection />
+
+    <AllRecipesSection />
     </main>
   );
 }
