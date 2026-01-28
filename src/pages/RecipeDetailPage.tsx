@@ -2,6 +2,7 @@ import RecipeDetailHero from "../components/RecipeDetailHero/RecipeDetailHero"
 import RecipeDetails from "../components/RecipeDetails/RecipeDetails"
 import RecipeInstructions from "../components/RecipeInstructions/RecipeInstructions"
 import RecipeIngredients from "../components/RecipeIngredients/RecipeIngredients"
+import RecipeActions from "../components/RecipeActions/RecipeActions"
 
 export default function RecipeDetailPage() {
     return(
@@ -10,6 +11,7 @@ export default function RecipeDetailPage() {
         <RecipeDetails />
         <RecipeIngredients />
         <RecipeInstructions />
+        <RecipeActions />
         </>
     )
 }

@@ -1,6 +1,4 @@
-
 import { ChefHat } from "lucide-react"
-
 
 export default function RecipeIngredients() {
     const ingredients = [
