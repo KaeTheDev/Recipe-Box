@@ -22,10 +22,10 @@ export default function RecipeCard() {
       {/* Card Content */}
       <div className="flex flex-col p-4 gap-2">
         <h3 className="text-lg font-semibold text-gray-800">
-          Classic Beef Tacos
+          Classic Mac and Cheese
         </h3>
         <p className="text-sm text-gray-600">
-          Perfectly seasoned ground beef tacos with all the fresh toppings
+        The ultimate American comfort food - creamy, cheesy, perfect!
         </p>
         <p className="text-xs text-gray-500">#quick #family favorite</p>
 
@@ -41,7 +41,7 @@ export default function RecipeCard() {
           </div>
           <div className="flex items-center gap-1">
             <Flame size={16} />
-            <span>Mexican</span>
+            <span>American</span>
           </div>
         </div>
       </div>

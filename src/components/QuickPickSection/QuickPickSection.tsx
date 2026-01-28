@@ -2,7 +2,7 @@ import QuickPickCard from "../QuickPickCard/QuickPickCard";
 
 export default function QuickPickSection() {
   return (
-    <section className="flex justify-center bg-gray-50 py-10">
+    <section className="flex justify-center py-10">
       <div className="w-full max-w-4xl px-4">
         <h3 className="text-2xl text-left">Quick Picks</h3>
         <p className="text-left text-sm text-gray-600 mb-8">
