@@ -1,12 +1,11 @@
 import HeroSection from "../components/HeroSection/HeroSection"
-import QuickPickCard from "../components/QuickPickCard/QuickPickCard"
+import QuickPickSection from "../components/QuickPickSection/QuickPickSection"
 
 export default function HomePage() {
   return (
     <>
   <HeroSection />
-
-  <QuickPickCard />
+  <QuickPickSection />
     </>
   )
 }
