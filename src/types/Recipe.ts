@@ -23,6 +23,7 @@ export interface Recipe {
     instructions: string[];
     notes?: string;
     isFavorite: boolean;
+    isFeatured?: boolean;
     createdAt: string;
 }
 

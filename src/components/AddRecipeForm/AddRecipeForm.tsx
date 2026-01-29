@@ -18,6 +18,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     instructions: initialData?.instructions || [],
     notes: initialData?.notes || "",
     isFavorite: initialData?.isFavorite || false,
+    isFeatured: initialData?.isFeatured || false,
     createdAt: initialData?.createdAt || new Date().toISOString(),
   });
   
@@ -355,6 +356,22 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 }}
               />
             )}
+          </div>
+
+           {/* Featured Checkbox */}
+           <div className="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              checked={form.isFeatured}
+              onChange={(e) =>
+                setForm({ ...form, isFeatured: e.target.checked })
+              }
+              id="isFeatured"
+              className="h-4 w-4"
+            />
+            <label htmlFor="isFeatured" className="text-sm text-gray-700">
+              Featured Recipe
+            </label>
           </div>
 
           {/* Submit */}
