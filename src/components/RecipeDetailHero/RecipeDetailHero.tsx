@@ -1,10 +1,6 @@
-import type { Recipe } from "../../types/Recipe";
+import type { RecipeComponentProps } from "../../types/RecipeProps";
 
-interface RecipeCardProps {
-  recipe: Recipe;
-}
-
-export default function RecipeDetailHero({ recipe }: RecipeCardProps) {
+export default function RecipeDetailHero({ recipe }: RecipeComponentProps) {
   if (!recipe) return null;
 
   return (

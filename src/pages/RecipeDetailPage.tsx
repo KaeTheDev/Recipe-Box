@@ -37,7 +37,7 @@ export default function RecipeDetailPage() {
           >
             {/* LEFT COLUMN */}
             <div className="flex-1 flex flex-col gap-6">
-              <RecipeDetails />
+              <RecipeDetails recipe={recipe} />
               <RecipeInstructions />
             </div>
   

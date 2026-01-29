@@ -1,14 +1,10 @@
 import { Clock, ChefHat, Flame, Heart } from "lucide-react";
 import MacandCheese from "../../assets/MacandCheese.png";
-import type { Recipe } from "../../types/Recipe";
 import { Link } from "react-router-dom";
+import type { RecipeComponentProps } from "../../types/RecipeProps";
 
 
-interface RecipeCardProps {
-  recipe: Recipe;
-}
-
-export default function RecipeCard({ recipe }: RecipeCardProps) {
+export default function RecipeCard({ recipe }: RecipeComponentProps) {
   return (
     <Link to={`/recipes/${recipe.id}`} className="w-full">
     <div

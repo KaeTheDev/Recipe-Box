@@ -1,6 +1,8 @@
 import { Clock, ChefHat, Flame } from "lucide-react";
+import type { RecipeComponentProps } from "../../types/RecipeProps";
 
-export default function RecipeDetails() {
+export default function RecipeDetails({ recipe }: RecipeComponentProps) {
+  if (!recipe) return null;
   return (
     <section className="bg-white rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8">
       {/* Stats Row */}
@@ -9,7 +11,9 @@ export default function RecipeDetails() {
           {/* Prep Time */}
           <div className="flex flex-col items-center">
             <Clock size={20} className="text-orange-500 mb-1" />
-            <p className="font-semibold text-sm sm:text-base">35</p>
+            <p className="font-semibold text-sm sm:text-base">
+              {recipe.cookTime}
+            </p>
             <p className="text-xs sm:text-sm text-gray-500">minutes</p>
           </div>
 
@@ -23,7 +27,9 @@ export default function RecipeDetails() {
               >
                 –
               </button>
-              <span className="font-semibold text-sm sm:text-base">4</span>
+              <span className="font-semibold text-sm sm:text-base">
+                {recipe.servings}
+              </span>
               <button
                 type="button"
                 className="w-6 h-6 rounded-full text-sm font-semibold hover:bg-gray-200"
@@ -37,7 +43,9 @@ export default function RecipeDetails() {
           {/* Difficulty */}
           <div className="flex flex-col items-center">
             <Flame size={20} className="text-orange-500 mb-1" />
-            <p className="font-semibold text-sm sm:text-base">Easy</p>
+            <p className="font-semibold text-sm sm:text-base">
+              {recipe.difficulty}
+            </p>
             <p className="text-xs sm:text-sm text-gray-500">level</p>
           </div>
         </div>
@@ -45,20 +53,19 @@ export default function RecipeDetails() {
 
       {/* Description */}
       <p className="mt-4 text-center text-sm sm:text-base text-gray-700 max-w-xl mx-auto">
-        Creamy, cheesy comfort food done right.
+        {recipe.description}
       </p>
 
       {/* Tags */}
       <div className="mt-3 flex justify-center flex-wrap gap-2">
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
-          #quick
-        </span>
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
-          #family
-        </span>
-        <span className="bg-gray-200/40 px-2 py-1 text-xs rounded-full">
-          #comfort
-        </span>
+        {recipe.tags?.map((tag, index) => (
+          <span
+            key={index}
+            className="bg-gray-200/40 px-2 py-1 text-xs rounded-full"
+          >
+            #{tag}
+          </span>
+        ))}
       </div>
     </section>
   );
