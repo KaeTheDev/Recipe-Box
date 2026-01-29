@@ -2,6 +2,9 @@ import { ChefHat } from "lucide-react";
 import type { RecipeComponentProps } from "../../types/RecipeProps";
 
 export default function RecipeIngredients({ recipe }: RecipeComponentProps) {
+  if (!recipe){
+    return null;
+  } 
     return (
       <section className="w-full max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg flex flex-col gap-4">
       {/* Header */}
