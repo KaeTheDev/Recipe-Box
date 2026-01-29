@@ -27,9 +27,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
       ...form,
       id: initialData ? form.id : crypto.randomUUID(),
     };
-    
+
     onSubmit(recipeToSave);
-  
+
     if (!initialData) {
       setForm({
         id: "",
@@ -52,43 +52,47 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
   }
 
   const handleFieldChange =
-  (field: keyof Recipe) =>
-  (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    // value can be string (text), number (numeric fields), or string[] (tags)
-    let value: string | number | string[] = e.target.value;
+    (field: keyof Recipe) =>
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => {
+      // value can be string (text), number (numeric fields), or string[] (tags)
+      let value: string | number | string[] = e.target.value;
 
-    // Convert numeric fields to number
-    if (field === "prepTime" || field === "cookTime" || field === "servings") {
-      value = e.target.value === "" ? 0 : Number(e.target.value);
-    }
+      // Convert numeric fields to number
+      if (
+        field === "prepTime" ||
+        field === "cookTime" ||
+        field === "servings"
+      ) {
+        value = e.target.value === "" ? 0 : Number(e.target.value);
+      }
 
-    // Convert tags input to string array
-    if (field === "tags") {
-      value = e.target.value.split(",").map((tag) => tag.trim());
-    }
+      // Convert tags input to string array
+      if (field === "tags") {
+        value = e.target.value.split(",").map((tag) => tag.trim());
+      }
 
-    // Update state
-    setForm({ ...form, [field]: value });
-  };
+      // Update state
+      setForm({ ...form, [field]: value });
+    };
 
   const handleIngredientChange =
-  (index: number, field: "item" | "quantity" | "unit") =>
-  (e: React.ChangeEvent<HTMLInputElement>) => {
-    const updated = [...form.ingredients];
+    (index: number, field: "item" | "quantity" | "unit") =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const updated = [...form.ingredients];
 
-    if (field === "quantity") {
-      updated[index].quantity =
-        e.target.value === "" ? "" : Number(e.target.value);
-    } else {
-      updated[index][field] = e.target.value;
-    }
+      if (field === "quantity") {
+        updated[index].quantity =
+          e.target.value === "" ? "" : Number(e.target.value);
+      } else {
+        updated[index][field] = e.target.value;
+      }
 
-    setForm({ ...form, ingredients: updated });
-  };
+      setForm({ ...form, ingredients: updated });
+    };
 
   const handleInstructionChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -244,7 +248,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                   onClick={() =>
                     setForm({
                       ...form,
-                      ingredients: form.ingredients.filter((_, idx) => idx !== i),
+                      ingredients: form.ingredients.filter(
+                        (_, idx) => idx !== i
+                      ),
                     })
                   }
                   className="text-red-500 text-sm"
@@ -290,7 +296,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                   onClick={() =>
                     setForm({
                       ...form,
-                      instructions: form.instructions.filter((_, idx) => idx !== i),
+                      instructions: form.instructions.filter(
+                        (_, idx) => idx !== i
+                      ),
                     })
                   }
                   className="text-red-500 text-sm"
@@ -322,40 +330,28 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
               className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
-
-          {/* Image Upload */}
+          
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-gray-700">
-              Recipe Image
+              Recipe Image URL
             </label>
 
             <input
-              type="file"
-              accept="image/*"
-              id="image-upload"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files?.[0]) {
-                  setForm({
-                    ...form,
-                    image: URL.createObjectURL(e.target.files[0]),
-                  });
-                }
-              }}
+              type="text"
+              placeholder="https://..."
+              value={form.image}
+              onChange={handleFieldChange("image")}
+              className="border rounded p-2 text-sm"
             />
-
-            <label
-              htmlFor="image-upload"
-              className="flex items-center justify-center gap-2 border rounded p-2 text-sm cursor-pointer hover:bg-gray-50"
-            >
-              <Plus size={16} /> Upload Image
-            </label>
 
             {form.image && (
               <img
                 src={form.image}
                 alt="Preview"
                 className="mt-2 w-32 h-32 object-cover rounded"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
               />
             )}
           </div>
