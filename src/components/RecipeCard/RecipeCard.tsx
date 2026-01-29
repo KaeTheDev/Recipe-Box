@@ -1,6 +1,8 @@
 import { Clock, ChefHat, Flame, Heart } from "lucide-react";
 import MacandCheese from "../../assets/MacandCheese.png";
 import type { Recipe } from "../../types/Recipe";
+import { Link } from "react-router-dom";
+
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -8,6 +10,7 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
   return (
+    <Link to={`/recipes/${recipe.id}`} className="w-full">
     <div
       className="relative flex flex-col bg-white rounded-lg shadow-md overflow-hidden 
     w-full max-w-70 sm:max-w-75 lg:max-w-[320px]"
@@ -71,5 +74,6 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         </div>
       </div>
     </div>
+    </Link>
   );
 }
