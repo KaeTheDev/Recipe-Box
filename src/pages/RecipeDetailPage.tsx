@@ -1,14 +1,23 @@
+import { useParams } from "react-router-dom";
+import { getRecipes } from "../utils/recipes";
 import RecipeDetailHero from "../components/RecipeDetailHero/RecipeDetailHero"
 import RecipeDetails from "../components/RecipeDetails/RecipeDetails"
 import RecipeInstructions from "../components/RecipeInstructions/RecipeInstructions"
 import RecipeIngredients from "../components/RecipeIngredients/RecipeIngredients"
 import RecipeActions from "../components/RecipeActions/RecipeActions"
 
+
 export default function RecipeDetailPage() {
+  const { id } = useParams();
+  const recipe = getRecipes().find((r) => r.id === id);
+
+  if(!recipe){
+    return <p>Recipe Not Found</p>
+  }
     return (
       <div className="min-h-screen bg-[#fff7f0]">
         {/* Hero */}
-        <RecipeDetailHero />
+        <RecipeDetailHero recipe={recipe} />
   
         {/* Content */}
         <div
