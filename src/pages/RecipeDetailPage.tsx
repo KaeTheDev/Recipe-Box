@@ -51,7 +51,7 @@ export default function RecipeDetailPage() {
                 lg:mt-6
               "
             >
-              <RecipeActions />
+              <RecipeActions recipe={recipe} />
               <RecipeIngredients recipe={recipe} />
             </aside>
           </div>

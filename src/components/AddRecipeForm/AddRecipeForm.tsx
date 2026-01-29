@@ -4,22 +4,23 @@ import type { Recipe, RecipeProps } from "../../types/Recipe";
 
 export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
   const [form, setForm] = useState<Recipe>({
-    id: "",
-    name: "",
-    description: "",
-    cuisine: "All",
-    difficulty: "Easy",
-    prepTime: 0,
-    cookTime: 0,
-    servings: 1,
-    image: "",
-    tags: [],
-    ingredients: [],
-    instructions: [],
-    notes: "",
-    isFavorite: false,
-    createdAt: new Date().toISOString(),
+    id: initialData?.id || "",
+    name: initialData?.name || "",
+    description: initialData?.description || "",
+    cuisine: initialData?.cuisine || "All",
+    difficulty: initialData?.difficulty || "Easy",
+    prepTime: initialData?.prepTime || 0,
+    cookTime: initialData?.cookTime || 0,
+    servings: initialData?.servings || 1,
+    image: initialData?.image || "",
+    tags: initialData?.tags || [],
+    ingredients: initialData?.ingredients || [],
+    instructions: initialData?.instructions || [],
+    notes: initialData?.notes || "",
+    isFavorite: initialData?.isFavorite || false,
+    createdAt: initialData?.createdAt || new Date().toISOString(),
   });
+  
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
