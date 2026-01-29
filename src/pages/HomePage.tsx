@@ -3,7 +3,6 @@ import QuickPickSection from "../components/QuickPickSection/QuickPickSection";
 import FeaturedRecipesSection from "../components/FeaturedRecipesSection/FeaturedRecipesSection";
 import ExploreCuisineSection from "../components/ExploreCuisineSection/ExploreCuisineSection";
 import AllRecipesSection from "../components/AllRecipesSection/AllRecipesSection";
-import AddRecipeForm from "../components/AddRecipeForm/AddRecipeForm";
 
 export default function HomePage() {
   return (
@@ -22,9 +21,6 @@ export default function HomePage() {
 
       {/* All Recipes */}
       <AllRecipesSection />
-
-
-      <AddRecipeForm />
     </main>
   );
 }

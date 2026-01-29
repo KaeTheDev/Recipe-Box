@@ -99,11 +99,8 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
           {/* Header */}
           <div>
             <h2 className="text-2xl font-semibold text-gray-800">
-              Add a Recipe
+              Basic Information
             </h2>
-            <p className="text-sm text-gray-600">
-              Fill out the details below to add your recipe.
-            </p>
           </div>
 
           {/* Recipe Name */}

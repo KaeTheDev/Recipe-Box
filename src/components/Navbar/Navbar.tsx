@@ -4,15 +4,15 @@ import { Book, House, Heart, List, PlusCircle, Menu, X } from "lucide-react";
 
 // Type for each nav item
 interface NavLinkItem {
-    to: string;
-    label: string;
-    icon: typeof House;
+  to: string;
+  label: string;
+  icon: typeof House;
 }
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const navLinks: NavLinkItem[ ] = [
+  const navLinks: NavLinkItem[] = [
     { to: "/", label: "Home", icon: House },
     { to: "/favorites", label: "Favorites", icon: Heart },
     { to: "/shopping-list", label: "Shopping List", icon: List },
@@ -64,11 +64,14 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <button className="flex items-center gap-2 whitespace-nowrap
- rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600">
+          {/* Add Recipe Link */}
+          <NavLink
+            to="/add-recipe"
+            className="flex items-center gap-2 whitespace-nowrap rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600"
+          >
             <PlusCircle size={18} />
             Add Recipe
-          </button>
+          </NavLink>
         </div>
       </div>
 
@@ -96,15 +99,16 @@ export default function Navbar() {
               </li>
             ))}
 
-            {/* CTA inside mobile dropdown */}
+            {/* Add Recipe Link for mobile */}
             <li>
-              <button
+              <NavLink
+                to="/add-recipe"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 whitespace-nowrap w-full justify-center rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600"
+                className="flex items-center gap-2 justify-center w-full whitespace-nowrap rounded-full bg-green-700 px-4 py-2 text-white hover:bg-green-600"
               >
                 <PlusCircle size={18} />
                 Add Recipe
-              </button>
+              </NavLink>
             </li>
           </ul>
         </div>
