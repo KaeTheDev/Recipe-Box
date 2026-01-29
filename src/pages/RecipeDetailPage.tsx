@@ -52,7 +52,7 @@ export default function RecipeDetailPage() {
               "
             >
               <RecipeActions />
-              <RecipeIngredients />
+              <RecipeIngredients recipe={recipe} />
             </aside>
           </div>
         </div>
