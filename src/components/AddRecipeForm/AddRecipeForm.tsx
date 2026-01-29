@@ -47,20 +47,28 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
   }
 
   const handleFieldChange =
-    (field: keyof Recipe) =>
-    (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >
-    ) => {
-      let value: any = e.target.value;
+  (field: keyof Recipe) =>
+  (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    // value can be string (text), number (numeric fields), or string[] (tags)
+    let value: string | number | string[] = e.target.value;
 
-      if (["prepTime", "cookTime", "servings"].includes(field)) {
-        value = Number(value);
-      }
+    // Convert numeric fields to number
+    if (field === "prepTime" || field === "cookTime" || field === "servings") {
+      value = e.target.value === "" ? 0 : Number(e.target.value);
+    }
 
-      setForm({ ...form, [field]: value });
-    };
+    // Convert tags input to string array
+    if (field === "tags") {
+      value = e.target.value.split(",").map((tag) => tag.trim());
+    }
+
+    // Update state
+    setForm({ ...form, [field]: value });
+  };
 
   const handleIngredientChange =
   (index: number, field: "item" | "quantity" | "unit") =>
@@ -76,7 +84,6 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
 
     setForm({ ...form, ingredients: updated });
   };
-
 
   const handleInstructionChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
