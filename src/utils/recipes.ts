@@ -19,3 +19,20 @@ export function addRecipe(recipe: Recipe): void {
     // Saves updated array
     localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
 }
+
+// UPDATE: Edit a recipe
+export function editRecipe(updatedRecipe: Recipe): void {
+    const recipes = getRecipes();  
+    const updatedRecipes = recipes.map((recipe) =>
+      recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
+  }
+
+// DELETE: Delete a recipe
+export function deleteRecipe(recipeId: string): void {
+    const recipes = getRecipes();
+    const updatedRecipes = recipes.filter((recipe) => recipe.id !== recipeId
+    );
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
+}
