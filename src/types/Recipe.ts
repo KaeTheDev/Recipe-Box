@@ -17,7 +17,7 @@ export interface Recipe {
     prepTime: number;
     cookTime: number;
     servings: number;
-    images: string;
+    image: string;
     tags: string[];
     ingredients: Ingredient[];
     instructions: string[];
