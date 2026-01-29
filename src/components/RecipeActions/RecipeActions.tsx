@@ -11,9 +11,16 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
   };
 
   const handleDelete = () => {
-    deleteRecipe(recipe.id);
-    navigate("/"); // go back home after deletion
+    if (!recipe) return;
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${recipe.name}"?`
+    );
+    if (confirmed) {
+      deleteRecipe(recipe.id);
+      navigate("/"); // go back home after deletion
+    }
   };
+  
 
   return (
     <section className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-3">
