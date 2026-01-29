@@ -1,31 +1,50 @@
 import { Heart } from "lucide-react";
+import RecipeCard from "../components/RecipeCard/RecipeCard";
+import { getFavorites } from "../utils/recipes";
+import { useNavigate } from "react-router-dom";
 
 export default function FavoritePage() {
+  const favorites = getFavorites();
+  const navigate = useNavigate();
+
   return (
     <>
-      {/* Header Section */}
+      {/* Header */}
       <section className="bg-orange-50 py-10 px-4">
         <div className="max-w-5xl mx-auto flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <Heart size={24} className="text-orange-500" />
             <h2 className="text-3xl font-semibold">Favorites</h2>
           </div>
-          <p className="text-sm text-gray-600">2 Favorite recipes</p>
+          <p className="text-sm text-gray-600">
+            {favorites.length} favorite recipe{favorites.length !== 1 && "s"}
+          </p>
         </div>
       </section>
 
-      {/* Empty State */}
+      {/* Favorites List or Empty State */}
       <section className="flex justify-center px-4">
-        <div className="flex flex-col items-center text-center mt-10 gap-4 px-6 py-8 bg-white rounded-lg shadow-md max-w-md w-full">
-          <Heart size={36} className="text-red-500" />
-          <h3 className="text-2xl font-semibold">No favorites yet</h3>
-          <p className="text-sm text-gray-600">
-            Mark recipes as favorites by tapping the heart icon. Your favorite recipes will appear here for quick access!
-          </p>
-          <button className="bg-orange-500 py-3 px-6 text-white rounded-md hover:bg-orange-600 transition">
-            Browse Recipes
-          </button>
-        </div>
+        {favorites.length === 0 ? (
+          <div className="flex flex-col items-center text-center mt-10 gap-4 px-6 py-8 bg-white rounded-lg shadow-md max-w-md w-full">
+            <Heart size={36} className="text-red-500" />
+            <h3 className="text-2xl font-semibold">No favorites yet</h3>
+            <p className="text-sm text-gray-600">
+              Mark recipes as favorites by tapping the heart icon. Your favorite recipes will appear here for quick access!
+            </p>
+            <button
+              onClick={() => navigate("/")}
+              className="bg-orange-500 py-3 px-6 text-white rounded-md hover:bg-orange-600 transition"
+            >
+              Browse Recipes
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-6">
+            {favorites.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        )}
       </section>
     </>
   );

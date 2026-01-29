@@ -11,6 +11,10 @@ export function getRecipes(): Recipe[] {
     return data ? JSON.parse(data) : [];
 }
 
+export function saveRecipes(recipes: Recipe[]): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
+}
+
 // CREATE: Add a new recipe
 export function addRecipe(recipe: Recipe): void {
     const recipes = getRecipes();
@@ -35,4 +39,19 @@ export function deleteRecipe(recipeId: string): void {
     const updatedRecipes = recipes.filter((recipe) => recipe.id !== recipeId
     );
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
+}
+
+// Toggle favorite
+export function toggleFavorite(id: string): void {
+  const recipes = getRecipes();
+  saveRecipes(
+    recipes.map(r =>
+      r.id === id ? { ...r, isFavorite: !r.isFavorite } : r
+    )
+  );
+}
+
+// Get only favorites
+export function getFavorites(): Recipe[] {
+  return getRecipes().filter(r => r.isFavorite);
 }
