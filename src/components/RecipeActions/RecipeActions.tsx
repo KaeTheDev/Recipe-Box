@@ -1,4 +1,4 @@
-import { Play, Trash, ShoppingBag } from "lucide-react";
+import { Play, Trash, ShoppingBag, Pencil } from "lucide-react";
 
 export default function RecipeActions() {
   return (
@@ -11,6 +11,11 @@ export default function RecipeActions() {
       <button className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-lg">
         <ShoppingBag size={18} />
         Add to List
+      </button>
+
+      <button className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold py-4 rounded-lg">
+        <Pencil size={18} />
+       Edit Recipe
       </button>
 
       <button className="w-full flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 rounded-lg">
