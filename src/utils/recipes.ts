@@ -2,7 +2,7 @@ import type { Recipe } from "../types/Recipe";
 
 const STORAGE_KEY = "recipes";
 
-// Helper function to get all recipes 
+// READ: Get all recipes 
 export function getRecipes(): Recipe[] {
     // retrieves a string from localStorage
     const data = localStorage.getItem(STORAGE_KEY);

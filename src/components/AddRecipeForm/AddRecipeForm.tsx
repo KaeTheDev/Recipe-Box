@@ -142,7 +142,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
               >
                 <option>All</option>
+                <option>American</option>
                 <option>Italian</option>
+                <option>Italian American</option>
                 <option>Mexican</option>
                 <option>Asian</option>
                 <option>Thai</option>
