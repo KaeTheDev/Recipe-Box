@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import AddRecipeForm from "../components/AddRecipeForm/AddRecipeForm";
+import { addRecipe } from "../utils/recipes";
 import type { Recipe } from "../types/Recipe";
 import { ArrowLeft } from "lucide-react";
 
 export default function AddRecipe() {
   const handleAddRecipe = (recipe: Recipe) => {
+    addRecipe(recipe);
     console.log("New recipe submitted:", recipe);
   };
 
