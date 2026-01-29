@@ -1,29 +1,32 @@
 import CuisineCard from "../CuisineCard/CuisineCard";
+import { getRecipes } from "../../utils/recipes";
+import { cuisineImages } from "../../config/cuisineImages";
 
 export default function ExploreCuisineSection() {
+  const recipes = getRecipes();
+
+  const cuisineMap = recipes.reduce<Record<string, number>>((acc, recipe) => {
+    acc[recipe.cuisine] = (acc[recipe.cuisine] || 0) + 1;
+    return acc;
+  }, {});
+
   return (
     <section className="flex justify-center bg-orange-50 py-10 px-4">
-      <div className="w-full max-w-5xl flex flex-col items-center">
-        {/* Header */}
-        <div className="w-full mb-6">
-          <div className="w-full max-w-5xl">
-            <div className="flex flex-col gap-2 mb-1">
-              <h3 className="text-2xl text-left">Explore by Cuisine</h3>
-              <p className="text-left text-sm text-gray-600">
-                Discover recipes from around the world
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="w-full max-w-5xl">
+        <h3 className="text-2xl mb-2">Explore by Cuisine</h3>
+        <p className="text-sm text-gray-600 mb-6">
+          Discover recipes from around the world
+        </p>
 
-        {/* Cuisine Cards */}
-        <div className="w-full flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            <CuisineCard />
-            <CuisineCard />
-            <CuisineCard />
-            <CuisineCard />
-          </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Object.entries(cuisineMap).map(([cuisine, count]) => (
+            <CuisineCard
+              key={cuisine}
+              cuisine={cuisine}
+              count={count}
+              image={cuisineImages[cuisine] ?? cuisineImages.American}
+            />
+          ))}
         </div>
       </div>
     </section>

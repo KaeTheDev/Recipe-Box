@@ -5,6 +5,7 @@ import Shopping from "./pages/ShoppingPage";
 import RecipeDetail from "./pages/RecipeDetailPage";
 import Navbar from "./components/Navbar/Navbar";
 import AddRecipe from "./pages/AddRecipe";
+import CuisineRecipesPage from "./pages/CuisineRecipesPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/shopping-list" element={<Shopping />} />
         <Route path="/recipes/:id" element={<RecipeDetail />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
+        <Route path="/recipes" element={<CuisineRecipesPage />} />
       </Routes> 
     </>
   );
