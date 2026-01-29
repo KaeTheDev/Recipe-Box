@@ -1,5 +1,5 @@
 import { LucideArrowUpRight } from "lucide-react";
-import RecipeCard from "../RecipeCard/RecipeCard";
+// import RecipeCard from "../RecipeCard/RecipeCard";
 
 export default function FeaturedRecipesSection() {
   return (
@@ -24,10 +24,10 @@ export default function FeaturedRecipesSection() {
         {/* Recipe Cards */}
         <div className="w-full flex justify-center">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+            {/* <RecipeCard />
             <RecipeCard />
             <RecipeCard />
-            <RecipeCard />
-            <RecipeCard />
+            <RecipeCard /> */}
           </div>
         </div>
       </div>

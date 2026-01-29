@@ -23,8 +23,13 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    onSubmit(form);
-
+    const recipeToSave: Recipe = {
+      ...form,
+      id: initialData ? form.id : crypto.randomUUID(),
+    };
+    
+    onSubmit(recipeToSave);
+  
     if (!initialData) {
       setForm({
         id: "",

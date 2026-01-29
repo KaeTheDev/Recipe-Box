@@ -1,11 +1,20 @@
 import RecipeCard from "../RecipeCard/RecipeCard";
+import { getRecipes } from "../../utils/recipes";
+import { useState, useEffect } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
+import type { Recipe } from "../../types/Recipe";
 
 export default function AllRecipesSection() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    const allRecipes = getRecipes();
+    setRecipes(allRecipes);
+  }, []);
+
   return (
     <section className="bg-orange-50 py-10 px-4">
       <div className="mx-auto w-full max-w-5xl flex flex-col gap-6">
-
         {/* Header */}
         <div>
           <h3 className="text-2xl font-semibold">All Recipes</h3>
@@ -27,7 +36,11 @@ export default function AllRecipesSection() {
 
         {/* Filter Tabs */}
         <div className="flex items-center gap-3 overflow-x-auto pb-1">
-          <FilterTab icon={<SlidersHorizontal size={16} />} label="Filters" active />
+          <FilterTab
+            icon={<SlidersHorizontal size={16} />}
+            label="Filters"
+            active
+          />
           <FilterTab label="Recent" />
           <FilterTab label="Time" />
           <FilterTab label="Difficulty" />
@@ -37,7 +50,6 @@ export default function AllRecipesSection() {
         {/* Filters Dropdown (static for now) */}
         <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-3">
-
             {/* Cuisine */}
             <div>
               <label className="mb-1 block text-sm font-medium">Cuisine</label>
@@ -56,7 +68,9 @@ export default function AllRecipesSection() {
 
             {/* Difficulty */}
             <div>
-              <label className="mb-1 block text-sm font-medium">Difficulty</label>
+              <label className="mb-1 block text-sm font-medium">
+                Difficulty
+              </label>
               <select className="w-full rounded-md border border-gray-200 p-2 text-sm">
                 <option>All</option>
                 <option>Easy</option>
@@ -78,16 +92,17 @@ export default function AllRecipesSection() {
         </div>
 
         {/* Recipes Grid */}
-        <div className="w-full flex justify-center">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
-  <RecipeCard />
-  <RecipeCard />
-  <RecipeCard />
-  <RecipeCard />
-</div>
-
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
+          {recipes.length === 0 ? (
+            <p className="col-span-full text-gray-500 text-center">
+              No recipes yet. Add some!
+            </p>
+          ) : (
+            recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))
+          )}
         </div>
-
       </div>
     </section>
   );
