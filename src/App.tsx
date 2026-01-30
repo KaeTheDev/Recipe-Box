@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import AddRecipe from "./pages/AddRecipePage";
 import CuisineRecipesPage from "./pages/CuisineRecipesPage";
 import QuickPicksPage from "./pages/QuickPickPage";
+import CookingPage from "./pages/CookingPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/add-recipe" element={<AddRecipe />} />
         <Route path="/recipes" element={<CuisineRecipesPage />} />
         <Route path="/quick-picks/:type" element={<QuickPicksPage />} />
+        <Route path="/cook/:id" element={<CookingPage />} />
       </Routes> 
     </>
   );
