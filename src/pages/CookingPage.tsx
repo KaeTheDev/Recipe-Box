@@ -6,6 +6,7 @@ import { getRecipeById } from "../utils/recipes";
 import CookingModeHeader from "../components/CookingModeHeader/CookingModeHeader";
 import CookingIngredientsList from "../components/CookingIngredientsList/CookingIngredientsList";
 import CookingStepCard from "../components/CookingStepCard/CookingStepCard";
+import AllStepsList from "../components/AllStepsList/AllStepsList";
 
 export default function CookingPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,9 +23,7 @@ export default function CookingPage() {
 
   if (!recipe) {
     return (
-      <div className="p-6 text-center text-gray-600">
-        Recipe not found
-      </div>
+      <div className="p-6 text-center text-gray-600">Recipe not found</div>
     );
   }
 
@@ -52,9 +51,7 @@ export default function CookingPage() {
         currentStep={currentStep + 1} // 1-based for display
         showIngredients={showIngredients}
         onBack={() => navigate(-1)}
-        onToggleIngredients={() =>
-          setShowIngredients(prev => !prev)
-        }
+        onToggleIngredients={() => setShowIngredients((prev) => !prev)}
       />
 
       {/* Ingredients List (toggleable) */}
@@ -69,6 +66,12 @@ export default function CookingPage() {
         stepText={recipe.instructions[currentStep]}
         isCompleted={completedStepsArr[currentStep]}
         onCompleteStep={handleCompleteStep}
+      />
+
+      <AllStepsList
+        steps={recipe.instructions}
+        currentStep={currentStep}
+        completedStepsArr={completedStepsArr}
       />
     </div>
   );
