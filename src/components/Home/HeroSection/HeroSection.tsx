@@ -1,6 +1,6 @@
 import { Stars, Heart, Clock, ChefHat } from "lucide-react";
-import { getRecipes } from "../../../utils/recipes";
-import Hero from "../../../assets/hero.png"
+import { useRecipes } from "../../../customHooks/useRecipes";
+import Hero from "../../../assets/hero.png";
 
 interface Stats {
   favorites: number;
@@ -10,7 +10,7 @@ interface Stats {
 }
 
 export default function HeroSection() {
-  const recipes = getRecipes();
+  const { recipes } = useRecipes(); 
 
   // Compute stats dynamically
   const stats: Stats = {
