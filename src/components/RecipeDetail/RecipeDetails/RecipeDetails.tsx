@@ -1,8 +1,20 @@
-import { Clock, ChefHat, Flame } from "lucide-react";
-import type { RecipeComponentProps } from "../../../types/RecipeProps";
+import { Clock, Flame } from "lucide-react";
+import type { Recipe } from "../../../types/Recipe";
+import ServingAdjuster from "../../ServingAdjuster/ServingAdjuster";
 
-export default function RecipeDetails({ recipe }: RecipeComponentProps) {
+interface RecipeDetailsProps {
+  recipe: Recipe;
+  currentServings: number;
+  onServingsChange: (newServings: number) => void;
+}
+
+export default function RecipeDetails({
+  recipe,
+  currentServings,
+  onServingsChange,
+}: RecipeDetailsProps) {
   if (!recipe) return null;
+
   return (
     <section className="bg-white rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8">
       {/* Stats Row */}
@@ -19,25 +31,11 @@ export default function RecipeDetails({ recipe }: RecipeComponentProps) {
 
           {/* Servings */}
           <div className="flex flex-col items-center">
-            <ChefHat size={20} className="text-orange-500 mb-1" />
-            <div className="flex items-center gap-3 mt-1">
-              <button
-                type="button"
-                className="w-6 h-6 rounded-full text-sm font-semibold hover:bg-gray-200"
-              >
-                –
-              </button>
-              <span className="font-semibold text-sm sm:text-base">
-                {recipe.servings}
-              </span>
-              <button
-                type="button"
-                className="w-6 h-6 rounded-full text-sm font-semibold hover:bg-gray-200"
-              >
-                +
-              </button>
-            </div>
-            <p className="text-xs sm:text-sm text-gray-500 mt-1">servings</p>
+            <ServingAdjuster
+              currentServings={currentServings}
+              originalServings={recipe.servings}
+              onServingsChange={onServingsChange}
+            />
           </div>
 
           {/* Difficulty */}
