@@ -1,8 +1,8 @@
 import QuickPickCard from "../QuickPickCard/QuickPickCard";
-import { getRecipes } from "../../../utils/recipes";
+import { useRecipes } from "../../../customHooks/useRecipes";
 
 export default function QuickPickSection() {
-  const recipes = getRecipes();
+  const { recipes } = useRecipes();
 
   const quickPicks = [
     {
