@@ -55,3 +55,8 @@ export function toggleFavorite(id: string): void {
 export function getFavorites(): Recipe[] {
   return getRecipes().filter(r => r.isFavorite);
 }
+
+// Get single recipe by ID
+export function getRecipeById(id: string): Recipe | undefined {
+  return getRecipes().find(r => r.id === id);
+}
