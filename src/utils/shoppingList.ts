@@ -64,3 +64,9 @@ export function clearCheckedItems(): void {
 export function clearAllItems(): void {
     localStorage.removeItem(STORAGE_KEY);
   }  
+
+  // QUERY: Check if recipe is in shopping list
+export function isRecipeInShoppingList(recipeId: string): boolean {
+    const items = getShoppingList();
+    return items.some((item) => item.recipeId === recipeId);
+  }
