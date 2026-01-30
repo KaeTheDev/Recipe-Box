@@ -1,14 +1,18 @@
 import CuisineCard from "../CuisineCard/CuisineCard";
-import { getRecipes } from "../../../utils/recipes";
+import type { Recipe } from "../../../types/Recipe";
+import { useRecipes } from "../../../customHooks/useRecipes";
 import { cuisineImages } from "../../../config/cuisineImages";
 
 export default function ExploreCuisineSection() {
-  const recipes = getRecipes();
+  const { recipes } = useRecipes(); 
 
-  const cuisineMap = recipes.reduce<Record<string, number>>((acc, recipe) => {
-    acc[recipe.cuisine] = (acc[recipe.cuisine] || 0) + 1;
-    return acc;
-  }, {});
+  const cuisineMap: Record<string, number> = recipes.reduce(
+    (acc: Record<string, number>, recipe: Recipe) => {
+      acc[recipe.cuisine] = (acc[recipe.cuisine] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
 
   return (
     <section className="flex justify-center bg-orange-50 py-10 px-4">
