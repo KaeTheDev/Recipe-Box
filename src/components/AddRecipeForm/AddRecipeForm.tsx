@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import type { Recipe, RecipeProps } from "../../types/Recipe";
+import { toast } from "react-hot-toast";
 
 export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
   const [form, setForm] = useState<Recipe>({
@@ -21,10 +22,30 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     isFeatured: initialData?.isFeatured || false,
     createdAt: initialData?.createdAt || new Date().toISOString(),
   });
-  
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!form.name.trim()) newErrors.name = "Recipe name is required";
+    if (!form.description.trim()) newErrors.description = "Description is required";
+
+    if (form.tags.some(tag => tag.includes(" ") || tag === ""))
+      newErrors.tags = "Tags must be comma-separated and cannot contain spaces";
+
+    if (form.prepTime < 0) newErrors.prepTime = "Prep time cannot be negative";
+    if (form.cookTime < 0) newErrors.cookTime = "Cook time cannot be negative";
+    if (form.servings <= 0) newErrors.servings = "Servings must be at least 1";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validate()) return;
+
     const recipeToSave: Recipe = {
       ...form,
       id: initialData ? form.id : crypto.randomUUID(),
@@ -32,6 +53,16 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
 
     onSubmit(recipeToSave);
 
+    // Scroll to top so toast is visible
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Show toast notification
+    toast.success(initialData ? "Recipe updated successfully!" : "Recipe added successfully!", {
+      duration: 4000,
+      position: "top-center",
+    });
+
+    // Reset form if creating new recipe
     if (!initialData) {
       setForm({
         id: "",
@@ -48,51 +79,39 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
         instructions: [],
         notes: "",
         isFavorite: false,
+        isFeatured: false,
         createdAt: new Date().toISOString(),
       });
     }
-  }
 
-  const handleFieldChange =
-    (field: keyof Recipe) =>
-    (
-      e: React.ChangeEvent<
-        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-      >
-    ) => {
-      // value can be string (text), number (numeric fields), or string[] (tags)
-      let value: string | number | string[] = e.target.value;
+    setErrors({});
+  };
 
-      // Convert numeric fields to number
-      if (
-        field === "prepTime" ||
-        field === "cookTime" ||
-        field === "servings"
-      ) {
-        value = e.target.value === "" ? 0 : Number(e.target.value);
-      }
+  const handleFieldChange = (field: keyof Recipe) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    let value: string | number | string[] = e.target.value;
 
-      // Convert tags input to string array
-      if (field === "tags") {
-        value = e.target.value.split(",").map((tag) => tag.trim());
-      }
+    if (["prepTime", "cookTime", "servings"].includes(field)) {
+      value = e.target.value === "" ? 0 : Number(e.target.value);
+    }
 
-      // Update state
-      setForm({ ...form, [field]: value });
-    };
+    if (field === "tags") {
+      value = e.target.value.split(",").map(tag => tag.trim());
+    }
+
+    setForm({ ...form, [field]: value });
+  };
 
   const handleIngredientChange =
     (index: number, field: "item" | "quantity" | "unit") =>
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const updated = [...form.ingredients];
-
       if (field === "quantity") {
-        updated[index].quantity =
-          e.target.value === "" ? "" : Number(e.target.value);
+        updated[index].quantity = e.target.value === "" ? "" : Number(e.target.value);
       } else {
         updated[index][field] = e.target.value;
       }
-
       setForm({ ...form, ingredients: updated });
     };
 
@@ -107,18 +126,13 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     <form onSubmit={handleSubmit}>
       <section className="flex justify-center bg-orange-50 py-10 px-4">
         <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 flex flex-col gap-6">
-          {/* Header */}
-          <div>
-            <h2 className="text-2xl font-semibold text-gray-800">
-              Basic Information
-            </h2>
-          </div>
+          <h2 className="text-2xl font-semibold text-gray-800">
+            {initialData ? "Update Recipe" : "Add Recipe"}
+          </h2>
 
           {/* Recipe Name */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Recipe Name
-            </label>
+            <label className="text-sm font-medium text-gray-700">Recipe Name</label>
             <input
               value={form.name}
               onChange={handleFieldChange("name")}
@@ -126,27 +140,25 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
               placeholder="Classic Mac and Cheese"
               className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
           </div>
 
           {/* Description */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Description
-            </label>
+            <label className="text-sm font-medium text-gray-700">Description</label>
             <textarea
               value={form.description}
               onChange={handleFieldChange("description")}
-              placeholder="Short description of the recipe..."
+              placeholder="Short description..."
               className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+            {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
           </div>
 
           {/* Cuisine & Difficulty */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">
-                Cuisine
-              </label>
+              <label className="text-sm font-medium text-gray-700">Cuisine</label>
               <select
                 value={form.cuisine}
                 onChange={handleFieldChange("cuisine")}
@@ -164,11 +176,8 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 <option>Indian</option>
               </select>
             </div>
-
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">
-                Difficulty
-              </label>
+              <label className="text-sm font-medium text-gray-700">Difficulty</label>
               <select
                 value={form.difficulty}
                 onChange={handleFieldChange("difficulty")}
@@ -181,7 +190,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
             </div>
           </div>
 
-          {/* Times */}
+          {/* Times & Servings */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {["prepTime", "cookTime", "servings"].map((field) => (
               <div key={field} className="flex flex-col gap-1">
@@ -194,10 +203,13 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 </label>
                 <input
                   type="number"
+                  min={field === "servings" ? 1 : 0}
+                  step={1}
                   value={form[field as keyof Recipe] as number}
                   onChange={handleFieldChange(field as keyof Recipe)}
                   className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
+                {errors[field] && <p className="text-red-500 text-xs">{errors[field]}</p>}
               </div>
             ))}
           </div>
@@ -207,24 +219,17 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
             <label className="text-sm font-medium text-gray-700">Tags</label>
             <input
               type="text"
-              placeholder="quick, family, vegetarian"
-              value={form.tags.join(", ")}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  tags: e.target.value.split(",").map((t) => t.trim()),
-                })
-              }
+              placeholder="quick,family,vegetarian"
+              value={form.tags.join(",")}
+              onChange={handleFieldChange("tags")}
               className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
+            {errors.tags && <p className="text-red-500 text-xs">{errors.tags}</p>}
           </div>
 
           {/* Ingredients */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">
-              Ingredients
-            </label>
-
+            <label className="text-sm font-medium text-gray-700">Ingredients</label>
             {form.ingredients.map((ing, i) => (
               <div key={i} className="grid grid-cols-4 gap-2">
                 <input
@@ -237,6 +242,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                   value={ing.quantity}
                   onChange={handleIngredientChange(i, "quantity")}
                   placeholder="Qty"
+                  type="number"
+                  min={0}
+                  step={0.1}
                   className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
                 <input
@@ -250,9 +258,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                   onClick={() =>
                     setForm({
                       ...form,
-                      ingredients: form.ingredients.filter(
-                        (_, idx) => idx !== i
-                      ),
+                      ingredients: form.ingredients.filter((_, idx) => idx !== i),
                     })
                   }
                   className="text-red-500 text-sm"
@@ -261,7 +267,6 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 </button>
               </div>
             ))}
-
             <button
               type="button"
               onClick={() =>
@@ -281,10 +286,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
 
           {/* Instructions */}
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">
-              Instructions
-            </label>
-
+            <label className="text-sm font-medium text-gray-700">Instructions</label>
             {form.instructions.map((step, i) => (
               <div key={i} className="flex gap-2">
                 <input
@@ -298,9 +300,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                   onClick={() =>
                     setForm({
                       ...form,
-                      instructions: form.instructions.filter(
-                        (_, idx) => idx !== i
-                      ),
+                      instructions: form.instructions.filter((_, idx) => idx !== i),
                     })
                   }
                   className="text-red-500 text-sm"
@@ -309,12 +309,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                 </button>
               </div>
             ))}
-
             <button
               type="button"
-              onClick={() =>
-                setForm({ ...form, instructions: [...form.instructions, ""] })
-              }
+              onClick={() => setForm({ ...form, instructions: [...form.instructions, ""] })}
               className="flex items-center gap-2 text-orange-500 text-sm"
             >
               <Plus size={16} /> Add Step
@@ -323,21 +320,17 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
 
           {/* Notes */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Notes (optional)
-            </label>
+            <label className="text-sm font-medium text-gray-700">Notes (optional)</label>
             <textarea
               value={form.notes}
               onChange={handleFieldChange("notes")}
               className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
             />
           </div>
-          
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Recipe Image URL
-            </label>
 
+          {/* Image */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Recipe Image URL</label>
             <input
               type="text"
               placeholder="https://..."
@@ -345,27 +338,22 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
               onChange={handleFieldChange("image")}
               className="border rounded p-2 text-sm"
             />
-
             {form.image && (
               <img
                 src={form.image}
                 alt="Preview"
                 className="mt-2 w-32 h-32 object-cover rounded"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                }}
+                onError={(e) => (e.currentTarget.style.display = "none")}
               />
             )}
           </div>
 
-           {/* Featured Checkbox */}
-           <div className="flex items-center gap-2 mt-2">
+          {/* Featured */}
+          <div className="flex items-center gap-2 mt-2">
             <input
               type="checkbox"
               checked={form.isFeatured}
-              onChange={(e) =>
-                setForm({ ...form, isFeatured: e.target.checked })
-              }
+              onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })}
               id="isFeatured"
               className="h-4 w-4"
             />
@@ -379,7 +367,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
             type="submit"
             className="bg-orange-500 text-white font-semibold rounded py-2 hover:bg-orange-600"
           >
-            Add Recipe
+            {initialData ? "Update Recipe" : "Add Recipe"}
           </button>
         </div>
       </section>

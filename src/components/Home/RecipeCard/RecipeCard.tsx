@@ -9,7 +9,7 @@ export default function RecipeCard({ recipe }: RecipeComponentProps) {
   const [isFavorite, setIsFavorite] = useState(recipe.isFavorite || false);
 
   const handleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault(); // prevent link navigation
+    e.preventDefault();
     toggleFavorite(recipe.id);
     setIsFavorite(!isFavorite);
   };
@@ -26,9 +26,12 @@ export default function RecipeCard({ recipe }: RecipeComponentProps) {
           overflow-hidden
           w-full
           max-w-[320px]
-          h-90                 /* 🔒 FIXED HEIGHT */
-          transition
-          hover:shadow-lg
+          h-90               
+          transition-all
+          duration-300
+          ease-in-out
+          hover:shadow-xl          
+          hover:scale-[1.02]       
         "
       >
         {/* Difficulty Badge */}
@@ -57,41 +60,41 @@ export default function RecipeCard({ recipe }: RecipeComponentProps) {
         </button>
 
         {/* Image */}
-        <img
-          src={recipe.image || MacandCheese}
-          alt={recipe.name}
-          className="w-full h-40 object-cover"
-        />
+        <div className="overflow-hidden">
+          <img
+            src={recipe.image || MacandCheese}
+            alt={recipe.name}
+            className="
+              w-full h-40 object-cover
+              transition-transform duration-300 ease-in-out
+              hover:scale-105         /* subtle zoom on hover */
+            "
+          />
+        </div>
 
         {/* Content */}
         <div className="flex flex-col flex-1 p-3 sm:p-4 gap-2">
-          {/* Title */}
           <h3 className="text-sm sm:text-base font-semibold text-gray-800 line-clamp-2">
             {recipe.name}
           </h3>
 
-          {/* Description */}
           <p className="text-xs sm:text-sm text-gray-600 leading-snug line-clamp-3">
             {recipe.description}
           </p>
 
-          {/* Tags */}
           <p className="text-[11px] text-gray-500 line-clamp-1">
             {recipe.tags.map(tag => `#${tag}`).join(" ")}
           </p>
 
-          {/* Stats – pinned to bottom */}
           <div className="mt-auto pt-2 flex justify-between text-xs sm:text-sm text-gray-700">
             <div className="flex items-center gap-1">
               <Clock size={14} />
               <span>{recipe.prepTime + recipe.cookTime} min</span>
             </div>
-
             <div className="flex items-center gap-1">
               <ChefHat size={14} />
               <span>{recipe.servings}</span>
             </div>
-
             <div className="flex items-center gap-1">
               <Flame size={14} />
               <span>{recipe.cuisine}</span>
