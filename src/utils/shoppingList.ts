@@ -53,4 +53,9 @@ export function removeRecipeFromShoppingList(recipeId: string): void {
     saveShoppingList(updatedItems);
   }
 
-  
+// DELETE: Clear all checked items
+export function clearCheckedItems(): void {
+    const items = getShoppingList();
+    const updatedItems = items.filter((item) => !item.checked);
+    saveShoppingList(updatedItems);
+  }
