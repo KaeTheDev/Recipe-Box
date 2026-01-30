@@ -11,11 +11,9 @@ export default function AddRecipe() {
 
   const handleSubmit = (recipe: Recipe) => {
     if (initialData) {
-      // Editing existing recipe
       editRecipe(recipe);
       console.log("Recipe updated:", recipe);
     } else {
-      // Adding new recipe
       addRecipe(recipe);
       console.log("New recipe submitted:", recipe);
     }
@@ -27,11 +25,12 @@ export default function AddRecipe() {
         {/* Header */}
         <div className="flex items-center gap-2 mb-6 text-gray-700">
           <Link
-            to="/"
-            className="flex items-center gap-1 text-sm hover:text-orange-500"
+            to={initialData ? `/recipes/${initialData.id}` : "/"}
+            className="hover:text-orange-500 transition"
           >
-            <ArrowLeft size={16} />
+            <ArrowLeft size={18} />
           </Link>
+
           <h2 className="text-3xl font-semibold">
             {initialData ? "Edit Recipe" : "New Recipe"}
           </h2>
