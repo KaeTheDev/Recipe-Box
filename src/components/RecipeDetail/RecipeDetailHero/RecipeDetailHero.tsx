@@ -1,4 +1,4 @@
-import type { RecipeComponentProps } from "../../types/RecipeProps";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
 
 export default function RecipeDetailHero({ recipe }: RecipeComponentProps) {
   if (!recipe) return null;

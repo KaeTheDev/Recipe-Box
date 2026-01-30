@@ -3,7 +3,7 @@ import Home from "./pages/HomePage";
 import Favorites from "./pages/FavoritePage";
 import Shopping from "./pages/ShoppingPage";
 import RecipeDetail from "./pages/RecipeDetailPage";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Shared/Navbar/Navbar";
 import AddRecipe from "./pages/AddRecipePage";
 import CuisineRecipesPage from "./pages/CuisineRecipesPage";
 import QuickPicksPage from "./pages/QuickPickPage";

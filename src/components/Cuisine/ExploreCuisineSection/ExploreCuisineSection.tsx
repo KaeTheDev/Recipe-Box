@@ -1,6 +1,6 @@
 import CuisineCard from "../CuisineCard/CuisineCard";
-import { getRecipes } from "../../utils/recipes";
-import { cuisineImages } from "../../config/cuisineImages";
+import { getRecipes } from "../../../utils/recipes";
+import { cuisineImages } from "../../../config/cuisineImages";
 
 export default function ExploreCuisineSection() {
   const recipes = getRecipes();

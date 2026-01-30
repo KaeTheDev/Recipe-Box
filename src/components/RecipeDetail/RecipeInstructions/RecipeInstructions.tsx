@@ -1,5 +1,5 @@
 import { Flame } from "lucide-react";
-import type { RecipeComponentProps } from "../../types/RecipeProps";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
 
 export default function RecipeInstructions({ recipe }: RecipeComponentProps) {
   if (!recipe){

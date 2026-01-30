@@ -1,8 +1,8 @@
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { getRecipes } from "../../utils/recipes";
+import { getRecipes } from "../../../utils/recipes";
 import { useState, useEffect } from "react";
 import { Search, SlidersHorizontal, Heart, Clock, Star } from "lucide-react";
-import type { Recipe } from "../../types/Recipe";
+import type { Recipe } from "../../../types/Recipe";
 
 export default function AllRecipesSection() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);

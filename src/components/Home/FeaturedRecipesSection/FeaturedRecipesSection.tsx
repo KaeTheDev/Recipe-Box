@@ -1,7 +1,7 @@
 import { LucideArrowUpRight } from "lucide-react";
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { getRecipes } from "../../utils/recipes";
-import type { Recipe } from "../../types/Recipe";
+import { getRecipes } from "../../../utils/recipes";
+import type { Recipe } from "../../../types/Recipe";
 
 export default function FeaturedRecipesSection() {
   const recipes: Recipe[] = getRecipes();

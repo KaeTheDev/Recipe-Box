@@ -3,11 +3,11 @@ import { useState } from "react";
 import type { Recipe } from "../types/Recipe";
 import { getRecipeById } from "../utils/recipes";
 
-import CookingModeHeader from "../components/CookingModeHeader/CookingModeHeader";
-import CookingIngredientsList from "../components/CookingIngredientsList/CookingIngredientsList";
-import CookingStepCard from "../components/CookingStepCard/CookingStepCard";
-import AllStepsList from "../components/AllStepsList/AllStepsList";
-import RecipeCompleteModal from "../components/RecipeCompleteModal/RecipeCompleteModal";
+import CookingModeHeader from "../components/CookingMode/CookingModeHeader/CookingModeHeader";
+import CookingIngredientsList from "../components/CookingMode/CookingIngredientsList/CookingIngredientsList";
+import CookingStepCard from "../components/CookingMode/CookingStepCard/CookingStepCard";
+import AllStepsList from "../components/CookingMode/AllStepsList/AllStepsList";
+import RecipeCompleteModal from "../components/CookingMode/RecipeCompleteModal/RecipeCompleteModal";
 
 export default function CookingPage() {
   const { id } = useParams<{ id: string }>();

@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import RecipeCard from "../components/RecipeCard/RecipeCard";
+import RecipeCard from "../components/Home/RecipeCard/RecipeCard";
 import { getFavorites } from "../utils/recipes";
 import { useNavigate } from "react-router-dom";
 

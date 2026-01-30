@@ -1,8 +1,8 @@
 import { Clock, ChefHat, Flame, Heart } from "lucide-react";
-import MacandCheese from "../../assets/MacandCheese.png";
+import MacandCheese from "../../../assets/MacandCheese.png";
 import { Link } from "react-router-dom";
-import type { RecipeComponentProps } from "../../types/RecipeProps";
-import { toggleFavorite } from "../../utils/recipes";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
+import { toggleFavorite } from "../../../utils/recipes";
 import { useState } from "react";
 
 export default function RecipeCard({ recipe }: RecipeComponentProps) {

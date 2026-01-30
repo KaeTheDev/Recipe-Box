@@ -1,5 +1,5 @@
 import { ChefHat } from "lucide-react";
-import type { RecipeComponentProps } from "../../types/RecipeProps";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
 
 export default function RecipeIngredients({ recipe }: RecipeComponentProps) {
   if (!recipe){

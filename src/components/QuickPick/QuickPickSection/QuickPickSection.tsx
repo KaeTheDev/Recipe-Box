@@ -1,5 +1,5 @@
 import QuickPickCard from "../QuickPickCard/QuickPickCard";
-import { getRecipes } from "../../utils/recipes";
+import { getRecipes } from "../../../utils/recipes";
 
 export default function QuickPickSection() {
   const recipes = getRecipes();

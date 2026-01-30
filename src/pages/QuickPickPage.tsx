@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { getRecipes } from "../utils/recipes";
-import RecipeCard from "../components/RecipeCard/RecipeCard";
+import RecipeCard from "../components/Home/RecipeCard/RecipeCard";
 import { Check } from "lucide-react";
 
 export default function QuickPicksPage() {

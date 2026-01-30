@@ -1,8 +1,8 @@
-import HeroSection from "../components/HeroSection/HeroSection";
-import QuickPickSection from "../components/QuickPickSection/QuickPickSection";
-import FeaturedRecipesSection from "../components/FeaturedRecipesSection/FeaturedRecipesSection";
-import ExploreCuisineSection from "../components/ExploreCuisineSection/ExploreCuisineSection";
-import AllRecipesSection from "../components/AllRecipesSection/AllRecipesSection";
+import HeroSection from "../components/Home/HeroSection/HeroSection";
+import QuickPickSection from "../components/QuickPick/QuickPickSection/QuickPickSection";
+import FeaturedRecipesSection from "../components/Home/FeaturedRecipesSection/FeaturedRecipesSection";
+import ExploreCuisineSection from "../components/Cuisine/ExploreCuisineSection/ExploreCuisineSection";
+import AllRecipesSection from "../components/Home/AllRecipesSection/AllRecipesSection";
 
 export default function HomePage() {
   return (

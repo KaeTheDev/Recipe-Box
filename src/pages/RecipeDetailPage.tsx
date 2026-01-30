@@ -1,11 +1,10 @@
 import { useParams } from "react-router-dom";
 import { getRecipes } from "../utils/recipes";
-import RecipeDetailHero from "../components/RecipeDetailHero/RecipeDetailHero"
-import RecipeDetails from "../components/RecipeDetails/RecipeDetails"
-import RecipeInstructions from "../components/RecipeInstructions/RecipeInstructions"
-import RecipeIngredients from "../components/RecipeIngredients/RecipeIngredients"
-import RecipeActions from "../components/RecipeActions/RecipeActions"
-
+import RecipeDetailHero from "../components/RecipeDetail/RecipeDetailHero/RecipeDetailHero";
+import RecipeDetails from "../components/RecipeDetail/RecipeDetails/RecipeDetails";
+import RecipeInstructions from "../components/RecipeDetail/RecipeInstructions/RecipeInstructions";
+import RecipeIngredients from "../components/RecipeDetail/RecipeIngredients/RecipeIngredients";
+import RecipeActions from "../components/RecipeDetail/RecipeActions/RecipeActions";
 
 export default function RecipeDetailPage() {
   const { id } = useParams();

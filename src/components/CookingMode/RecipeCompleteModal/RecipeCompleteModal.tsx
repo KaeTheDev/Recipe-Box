@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { X, Heart, Share2, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toggleFavorite } from "../../utils/recipes";
-import type { Recipe } from "../../types/Recipe";
+import { toggleFavorite } from "../../../utils/recipes";
+import type { Recipe } from "../../../types/Recipe";
 
 interface RecipeCompleteModalProps {
   recipe: Recipe;

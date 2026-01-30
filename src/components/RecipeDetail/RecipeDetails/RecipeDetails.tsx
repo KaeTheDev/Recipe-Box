@@ -1,5 +1,5 @@
 import { Clock, ChefHat, Flame } from "lucide-react";
-import type { RecipeComponentProps } from "../../types/RecipeProps";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
 
 export default function RecipeDetails({ recipe }: RecipeComponentProps) {
   if (!recipe) return null;

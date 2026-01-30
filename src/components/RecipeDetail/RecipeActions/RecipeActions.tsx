@@ -1,7 +1,7 @@
 import { Play, Trash, ShoppingBag, Pencil } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { RecipeComponentProps } from "../../types/RecipeProps";
-import { deleteRecipe } from "../../utils/recipes";
+import type { RecipeComponentProps } from "../../../types/RecipeProps";
+import { deleteRecipe } from "../../../utils/recipes";
 
 export default function RecipeActions({ recipe }: RecipeComponentProps) {
   const navigate = useNavigate();
