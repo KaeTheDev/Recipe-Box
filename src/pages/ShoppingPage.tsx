@@ -1,6 +1,8 @@
 import { ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function ShoppingPage() {
+  const navigate = useNavigate(); 
   return (
     <>
       {/* Header Section */}
@@ -25,7 +27,10 @@ export default function ShoppingPage() {
             Add recipes to your shopping list to see ingredients here. Items
             from multiple recipes are automatically combined!
           </p>
-          <button className="bg-orange-500 py-3 px-6 text-white rounded-md hover:bg-orange-600 transition">
+          <button
+            onClick={() => navigate("/")} 
+            className="bg-orange-500 py-3 px-6 text-white rounded-md hover:bg-orange-600 transition"
+          >
             Browse Recipes
           </button>
         </div>
