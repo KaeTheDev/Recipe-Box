@@ -4,8 +4,9 @@ import Favorites from "./pages/FavoritePage";
 import Shopping from "./pages/ShoppingPage";
 import RecipeDetail from "./pages/RecipeDetailPage";
 import Navbar from "./components/Navbar/Navbar";
-import AddRecipe from "./pages/AddRecipe";
+import AddRecipe from "./pages/AddRecipePage";
 import CuisineRecipesPage from "./pages/CuisineRecipesPage";
+import QuickPicksPage from "./pages/QuickPickPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/recipes/:id" element={<RecipeDetail />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
         <Route path="/recipes" element={<CuisineRecipesPage />} />
+        <Route path="/quick-picks/:type" element={<QuickPicksPage />} />
       </Routes> 
     </>
   );
