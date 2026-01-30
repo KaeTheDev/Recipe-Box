@@ -59,3 +59,8 @@ export function clearCheckedItems(): void {
     const updatedItems = items.filter((item) => !item.checked);
     saveShoppingList(updatedItems);
   }
+
+  // DELETE: Clear all items
+export function clearAllItems(): void {
+    localStorage.removeItem(STORAGE_KEY);
+  }  
