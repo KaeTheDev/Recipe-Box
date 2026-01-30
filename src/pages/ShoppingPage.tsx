@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ShoppingBag, X } from "lucide-react";
 import {
-  getGroupedShoppingList,
+  getAggregatedShoppingList,
   getShoppingListStats,
   toggleShoppingListItem,
   removeShoppingListItem,
@@ -24,7 +24,7 @@ export default function ShoppingPage() {
   });
 
   const loadShoppingList = () => {
-    setGroupedItems(getGroupedShoppingList());
+    setGroupedItems(getAggregatedShoppingList());
     setStats(getShoppingListStats());
   };
 

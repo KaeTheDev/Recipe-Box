@@ -8,7 +8,12 @@ interface CategorySectionProps {
   onRemove: (itemId: string) => void;
 }
 
-export default function CategorySection({ category, items, onToggle, onRemove }: CategorySectionProps) {
+export default function CategorySection({
+  category,
+  items,
+  onToggle,
+  onRemove,
+}: CategorySectionProps) {
   const checkedCount = items.filter((i) => i.checked).length;
   const totalCount = items.length;
 
@@ -18,7 +23,9 @@ export default function CategorySection({ category, items, onToggle, onRemove }:
       <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-gray-900">{category}</h2>
-          <span className="text-sm text-gray-500">{checkedCount}/{totalCount}</span>
+          <span className="text-sm text-gray-500">
+            {checkedCount}/{totalCount}
+          </span>
         </div>
       </div>
 
@@ -41,8 +48,18 @@ export default function CategorySection({ category, items, onToggle, onRemove }:
                 }`}
               >
                 {item.checked && (
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/>
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 )}
               </div>
@@ -50,22 +67,38 @@ export default function CategorySection({ category, items, onToggle, onRemove }:
 
             {/* Info */}
             <div className="flex-1 min-w-0">
-              <p className={`font-medium ${item.checked ? "line-through text-gray-500" : "text-gray-900"}`}>
+              <p
+                className={`font-medium ${
+                  item.checked ? "line-through text-gray-500" : "text-gray-900"
+                }`}
+              >
                 {item.item}
               </p>
-              <p className="text-sm text-gray-500 mt-0.5">From: {item.recipeName}</p>
-              {item.note && <p className="text-xs text-gray-400 mt-1">{item.note}</p>}
+
+              <p className="text-sm text-gray-500 mt-0.5">
+                From:{" "}
+                {(
+                  item as ShoppingListItem & { recipes?: string[] }
+                ).recipes?.join(", ") || item.recipeName}
+              </p>
             </div>
 
             {/* Amount */}
             <div className="text-right shrink-0">
-              <p className={`font-medium ${item.checked ? "text-gray-400" : "text-gray-700"}`}>
+              <p
+                className={`font-medium ${
+                  item.checked ? "text-gray-400" : "text-gray-700"
+                }`}
+              >
                 {item.quantity} {item.unit}
               </p>
             </div>
 
             {/* Remove */}
-            <button onClick={() => onRemove(item.id)} className="shrink-0 text-gray-400 hover:text-red-500 transition-colors">
+            <button
+              onClick={() => onRemove(item.id)}
+              className="shrink-0 text-gray-400 hover:text-red-500 transition-colors"
+            >
               <X size={20} />
             </button>
           </div>
