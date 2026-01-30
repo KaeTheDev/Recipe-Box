@@ -93,7 +93,7 @@ export default function AllRecipesSection() {
       <div className="mx-auto w-full max-w-5xl flex flex-col gap-6">
         {/* Header */}
         <div>
-          <h3 className="text-2xl font-semibold">All Recipes</h3>
+          <h3 className="text-2xl">All Recipes</h3>
           <p className="text-sm text-gray-600">{filtered.length} recipes</p>
         </div>
 
