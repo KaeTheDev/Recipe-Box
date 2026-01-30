@@ -6,6 +6,10 @@ import { deleteRecipe } from "../../utils/recipes";
 export default function RecipeActions({ recipe }: RecipeComponentProps) {
   const navigate = useNavigate();
 
+  const handleStartCooking = () => {
+    navigate(`/cook/${recipe.id}`);
+  };
+
   const handleEdit = () => {
     navigate("/add-recipe", { state: { initialData: recipe } });
   };
@@ -24,7 +28,9 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
 
   return (
     <section className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-3">
-      <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg">
+      <button 
+      onClick={handleStartCooking}
+      className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg">
         <Play size={18} />
         Start Cooking
       </button>
