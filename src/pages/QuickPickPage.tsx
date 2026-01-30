@@ -11,8 +11,11 @@ export default function QuickPicksPage() {
   // Filter recipes based on type
   let filtered = recipes;
   let title = "";
+
   if (type === "under-30") {
-    filtered = recipes.filter(r => r.prepTime + r.cookTime <= 30);
+    filtered = recipes.filter(
+      r => r.prepTime + r.cookTime <= 30
+    );
     title = "Under 30 Minutes";
   } else if (type === "beginner") {
     filtered = recipes.filter(r => r.difficulty === "Easy");
@@ -34,7 +37,7 @@ export default function QuickPicksPage() {
 
   return (
     <>
-      {/* Hero / Header Section */}
+      {/* Header */}
       <section className="bg-orange-50 py-10 px-4">
         <div className="max-w-5xl mx-auto flex flex-col gap-2">
           <div className="flex items-center gap-2">
@@ -42,7 +45,7 @@ export default function QuickPicksPage() {
             <h2 className="text-3xl font-semibold">{title}</h2>
           </div>
           <p className="text-sm text-gray-600">
-            {filtered.length} recipe{filtered.length !== 1 && "s"} found
+            {filtered.length} recipe{filtered.length !== 1 && "s"}
           </p>
         </div>
       </section>
@@ -64,7 +67,8 @@ export default function QuickPicksPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mt-6">
+          // ✅ MATCHES FAVORITES PAGE GRID EXACTLY
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-6">
             {filtered.map(recipe => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
