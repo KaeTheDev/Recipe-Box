@@ -27,13 +27,11 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
 
   const handleAddToList = () => {
     if (inList) {
-      // Remove from list
       removeRecipeFromShoppingList(recipe.id);
       setInList(false);
       setShowFeedback(true);
       setTimeout(() => setShowFeedback(false), 2000);
     } else {
-      // Add to list
       addRecipeToShoppingList(recipe);
       setInList(true);
       setShowFeedback(true);
@@ -41,13 +39,22 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
     }
   };
 
+  const handleStartCooking = () => {
+    navigate(`/cook/${recipe.id}`);
+  };
+  
   return (
     <section className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-3">
-      <button className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg transition-colors">
+      {/* Start Cooking */}
+      <button
+        onClick={handleStartCooking}
+        className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg transition-colors"
+      >
         <Play size={18} />
         Start Cooking
       </button>
 
+      {/* Add to Shopping List */}
       <button
         onClick={handleAddToList}
         className={`w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-lg transition-colors ${
@@ -60,6 +67,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
         {inList ? "In Shopping List" : "Add to List"}
       </button>
 
+      {/* Feedback */}
       {showFeedback && (
         <div
           className={`text-sm text-center py-2 px-3 rounded-lg ${
@@ -72,6 +80,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
         </div>
       )}
 
+      {/* Edit Recipe */}
       <button
         onClick={handleEdit}
         className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold py-4 rounded-lg transition-colors"
@@ -80,6 +89,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
         Edit Recipe
       </button>
 
+      {/* Delete Recipe */}
       <button
         onClick={handleDelete}
         className="w-full flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 rounded-lg transition-colors"
