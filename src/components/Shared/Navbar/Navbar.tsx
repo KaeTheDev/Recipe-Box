@@ -53,7 +53,7 @@ export default function Navbar() {
                      ${
                        isActive
                          ? "bg-orange-100 text-orange-700"
-                         : "text-orange-700 hover:bg-red-50"
+                         : "text-orange-700 hover:bg-orange-50"
                      }`
                   }
                 >
@@ -88,8 +88,8 @@ export default function Navbar() {
                     `flex items-center justify-center gap-2 px-4 py-2 rounded-full transition
                      ${
                        isActive
-                         ? "bg-red-100 text-red-700"
-                         : "text-red-700 hover:bg-red-50"
+                         ? "bg-orange-100 text-orange-700"
+                         : "text-orange-700 hover:bg-orange-50"
                      }`
                   }
                 >
