@@ -3,8 +3,8 @@ import { ArrowLeft } from "lucide-react";
 interface CookingModeHeaderProps {
   recipeName: string;
   totalSteps: number;
-  completedSteps: number; 
-  currentStep: number;    
+  currentStep: number;       
+  completedSteps: number;
   showIngredients: boolean;
   onBack: () => void;
   onToggleIngredients: () => void;
@@ -13,8 +13,8 @@ interface CookingModeHeaderProps {
 export default function CookingModeHeader({
   recipeName,
   totalSteps,
-  completedSteps,
   currentStep,
+  completedSteps,
   showIngredients,
   onBack,
   onToggleIngredients,
@@ -39,14 +39,15 @@ export default function CookingModeHeader({
         <button
           onClick={onToggleIngredients}
           className={`px-3 py-1 rounded-full font-semibold text-sm transition ${
-            showIngredients ? "bg-green-500 text-white" : "bg-gray-200 text-gray-700"
+            showIngredients
+              ? "bg-green-500 text-white"
+              : "bg-gray-200 text-gray-700"
           }`}
         >
           Ingredients
         </button>
       </div>
 
-      {/* Progress Bar */}
       <div className="flex flex-col gap-1">
         <div className="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
           <div
@@ -55,7 +56,7 @@ export default function CookingModeHeader({
           />
         </div>
         <p className="text-xs text-gray-600">
-          Step {currentStep} of {totalSteps} • {completedSteps} completed
+          Step {currentStep + 1} of {totalSteps} • {completedSteps} completed
         </p>
       </div>
     </header>

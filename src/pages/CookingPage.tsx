@@ -7,6 +7,7 @@ import CookingModeHeader from "../components/CookingModeHeader/CookingModeHeader
 import CookingIngredientsList from "../components/CookingIngredientsList/CookingIngredientsList";
 import CookingStepCard from "../components/CookingStepCard/CookingStepCard";
 import AllStepsList from "../components/AllStepsList/AllStepsList";
+import RecipeCompleteModal from "../components/RecipeCompleteModal/RecipeCompleteModal";
 
 export default function CookingPage() {
   const { id } = useParams<{ id: string }>();
@@ -20,6 +21,7 @@ export default function CookingPage() {
   const [completedStepsArr, setCompletedStepsArr] = useState<boolean[]>(
     recipe ? Array(recipe.instructions.length).fill(false) : []
   );
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
 
   if (!recipe) {
     return (
@@ -33,8 +35,11 @@ export default function CookingPage() {
     newCompleted[currentStep] = true;
     setCompletedStepsArr(newCompleted);
 
-    // Move to next step if exists
-    if (currentStep < recipe.instructions.length - 1) {
+    // If last step completed, show modal
+    if (currentStep === recipe.instructions.length - 1) {
+      setShowCompleteModal(true);
+    } else {
+      // Move to next step
       setCurrentStep(currentStep + 1);
     }
   };
@@ -68,11 +73,20 @@ export default function CookingPage() {
         onCompleteStep={handleCompleteStep}
       />
 
+      {/* All Steps List */}
       <AllStepsList
         steps={recipe.instructions}
         currentStep={currentStep}
         completedStepsArr={completedStepsArr}
       />
+
+      {/* Completion Modal */}
+      {showCompleteModal && (
+        <RecipeCompleteModal
+          recipe={recipe}
+          onClose={() => setShowCompleteModal(false)}
+        />
+      )}
     </div>
   );
 }
