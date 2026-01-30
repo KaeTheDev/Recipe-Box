@@ -91,4 +91,15 @@ export function getGroupedShoppingList(): GroupedItems {
         acc[key] = grouped[key];
         return acc;
       }, {} as GroupedItems);
+  } 
+
+  // QUERY: Get shopping list statistics
+export function getShoppingListStats(): ShoppingListStats {
+    const items = getShoppingList();
+    const total = items.length;
+    const checked = items.filter((item) => item.checked).length;
+    const unchecked = total - checked;
+    const percentComplete = total > 0 ? Math.round((checked / total) * 100) : 0;
+  
+    return { total, checked, unchecked, percentComplete };
   }
