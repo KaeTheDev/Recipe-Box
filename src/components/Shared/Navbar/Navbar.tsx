@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom"; // <-- import Link
 import { Book, House, Heart, List, PlusCircle, Menu, X } from "lucide-react";
 
 // Type for each nav item
@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className="relative bg-white shadow-md px-6 py-4">
       {/* Logo */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3">  {/* <-- make it clickable */}
           <Book size={40} className="text-orange-500" />
           <div>
             <h1 className="text-xl font-bold">Recipe Box</h1>
@@ -30,7 +30,7 @@ export default function Navbar() {
               Your Personal Recipe Collection
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Hamburger for mobile */}
         <button
@@ -53,7 +53,7 @@ export default function Navbar() {
                      ${
                        isActive
                          ? "bg-orange-100 text-orange-700"
-                         : "text-orange-700 hover:bg-orange-50"
+                         : "text-orange-700 hover:bg--50"
                      }`
                   }
                 >
