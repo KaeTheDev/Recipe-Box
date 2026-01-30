@@ -1,19 +1,16 @@
 import { useSearchParams } from "react-router-dom";
+import { getRecipes } from "../utils/recipes";
 import RecipeCard from "../components/Home/RecipeCard/RecipeCard";
 import { ForkKnife } from "lucide-react";
-import { useRecipes } from "../customHooks/useRecipes";
-import type { Recipe } from "../types/Recipe";
 
 export default function CuisineRecipesPage() {
   const [searchParams] = useSearchParams();
   const cuisine = searchParams.get("cuisine");
 
-  // Get recipes from the hook
-  const { recipes } = useRecipes();
+  const recipes = getRecipes();
 
-  // Filter recipes with explicit type for 'recipe'
-  const filteredRecipes: Recipe[] = cuisine
-    ? recipes.filter((recipe: Recipe) => recipe.cuisine === cuisine)
+  const filteredRecipes = cuisine
+    ? recipes.filter((recipe) => recipe.cuisine === cuisine)
     : recipes;
 
   return (
@@ -28,7 +25,8 @@ export default function CuisineRecipesPage() {
             </h2>
           </div>
           <p className="text-sm text-gray-600">
-            {filteredRecipes.length} recipe{filteredRecipes.length !== 1 && "s"} found
+            {filteredRecipes.length} recipe
+            {filteredRecipes.length !== 1 && "s"} found
           </p>
         </div>
       </section>
@@ -40,7 +38,7 @@ export default function CuisineRecipesPage() {
             <p className="text-gray-500">No recipes found.</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredRecipes.map((recipe: Recipe) => (
+              {filteredRecipes.map((recipe) => (
                 <RecipeCard key={recipe.id} recipe={recipe} />
               ))}
             </div>

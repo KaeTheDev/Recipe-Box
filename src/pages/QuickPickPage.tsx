@@ -1,37 +1,36 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecipes } from "../customHooks/useRecipes";
+import { getRecipes } from "../utils/recipes";
 import RecipeCard from "../components/Home/RecipeCard/RecipeCard";
 import { Check } from "lucide-react";
-import type { Recipe } from "../types/Recipe";
 
 export default function QuickPicksPage() {
   const { type } = useParams<{ type: string }>();
   const navigate = useNavigate();
+  const recipes = getRecipes();
 
-  const { recipes } = useRecipes();
-
-  let filtered: Recipe[] = recipes;
+  // Filter recipes based on type
+  let filtered = recipes;
   let title = "";
 
   if (type === "under-30") {
     filtered = recipes.filter(
-      recipe => recipe.prepTime + recipe.cookTime <= 30
+      r => r.prepTime + r.cookTime <= 30
     );
     title = "Under 30 Minutes";
   } else if (type === "beginner") {
-    filtered = recipes.filter(recipe => recipe.difficulty === "Easy");
+    filtered = recipes.filter(r => r.difficulty === "Easy");
     title = "Beginner Friendly";
   } else if (type === "favorites") {
-    filtered = recipes.filter(recipe => recipe.isFavorite);
+    filtered = recipes.filter(r => r.isFavorite);
     title = "Favorites";
   } else if (type === "vegetarian") {
-    filtered = recipes.filter(recipe =>
-      recipe.tags?.some(tag => tag.toLowerCase() === "vegetarian")
+    filtered = recipes.filter(
+      r => r.tags?.some(tag => tag.toLowerCase() === "vegetarian")
     );
     title = "Vegetarian";
   } else if (type === "healthy") {
-    filtered = recipes.filter(recipe =>
-      recipe.tags?.some(tag => tag.toLowerCase() === "healthy")
+    filtered = recipes.filter(
+      r => r.tags?.some(tag => tag.toLowerCase() === "healthy")
     );
     title = "Healthy";
   }
@@ -50,7 +49,7 @@ export default function QuickPicksPage() {
           </p>
         </div>
       </section>
-  
+
       {/* Recipes List or Empty State */}
       <section className="flex justify-center px-4">
         {filtered.length === 0 ? (
@@ -58,7 +57,7 @@ export default function QuickPicksPage() {
             <Check size={36} className="text-green-500" />
             <h3 className="text-2xl font-semibold">No recipes found</h3>
             <p className="text-sm text-gray-600">
-              Sorry, we couldn't find any recipes matching this category.
+              Sorry, we couldn't find any recipes matching this category. Try browsing other quick picks or check back later!
             </p>
             <button
               onClick={() => navigate("/")}
@@ -68,16 +67,14 @@ export default function QuickPicksPage() {
             </button>
           </div>
         ) : (
-          <>
-            {/* matches Favorites layout */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-6">
-              {filtered.map((recipe: Recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
-              ))}
-            </div>
-          </>
+          // ✅ MATCHES FAVORITES PAGE GRID EXACTLY
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-6">
+            {filtered.map(recipe => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
         )}
       </section>
     </>
   );
-}  
+}

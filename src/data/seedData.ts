@@ -3,7 +3,7 @@ import DefaultRecipeImage from "../assets/DefaultRecipeImage.png";
 
 export const seedRecipes: Recipe[] = [
   {
-    id: "1",
+    id: crypto.randomUUID(),
     name: "Spaghetti alla Carbonara",
     description: "Iconic Roman pasta — creamy, rich, and made without cream.",
     cuisine: "Italian",
@@ -12,13 +12,13 @@ export const seedRecipes: Recipe[] = [
     cookTime: 15,
     servings: 4,
     image: "https://images.unsplash.com/photo-1612874742237-6526221588e3",
-    tags: ["Pasta", "Quick", "Comfort Food"],
+    tags: ["Pasta", "Quick", "Comfort", "Food"],
     ingredients: [
       { item: "Spaghetti", quantity: 400, unit: "g", category: "Pasta" },
       { item: "Guanciale", quantity: 150, unit: "g", category: "Meat" },
       { item: "Eggs", quantity: 4, unit: "whole", category: "Dairy" },
       { item: "Pecorino Romano", quantity: 100, unit: "g", category: "Cheese" },
-      { item: "Black pepper", quantity: "1", unit: "tsp", category: "Spice" },
+      { item: "Black pepper", quantity: "to taste", unit: "", category: "Spice" },
     ],
     instructions: [
       "Bring a large pot of salted water to boil and cook the spaghetti al dente.",
@@ -36,7 +36,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "2",
+    id: crypto.randomUUID(),
     name: "Classic Mac and Cheese",
     description: "Creamy American comfort food with a golden cheese sauce.",
     cuisine: "American",
@@ -45,7 +45,7 @@ export const seedRecipes: Recipe[] = [
     cookTime: 20,
     servings: 6,
     image: "https://images.unsplash.com/photo-1543339494-b4cd4f7ba686",
-    tags: ["Comfort Food", "Beginner Friendly", "Quick"],
+    tags: ["Comfort", "Food", "Beginner", "Friendly", "Quick"],
     ingredients: [
       { item: "Elbow macaroni", quantity: 450, unit: "g", category: "Pasta" },
       { item: "Butter", quantity: 60, unit: "g", category: "Dairy" },
@@ -71,7 +71,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "3",
+    id: crypto.randomUUID(),
     name: "Chicken Parmigiana",
     description: "Italian-American classic with crispy chicken & melted cheese.",
     cuisine: "Italian American",
@@ -80,7 +80,7 @@ export const seedRecipes: Recipe[] = [
     cookTime: 30,
     servings: 4,
     image: "https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8",
-    tags: ["Chicken", "Comfort Food", "Family Favorite"],
+    tags: ["Chicken", "Comfort", "Family", "Favorite"],
     ingredients: [
       { item: "Chicken breasts", quantity: 4, unit: "pcs", category: "Meat" },
       { item: "Flour", quantity: 100, unit: "g", category: "Baking" },
@@ -104,7 +104,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "4",
+    id: crypto.randomUUID(),
     name: "Vegetarian Tacos",
     description: "Quick and flavorful veggie tacos with black beans.",
     cuisine: "Mexican",
@@ -113,7 +113,7 @@ export const seedRecipes: Recipe[] = [
     cookTime: 15,
     servings: 4,
     image: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85",
-    tags: ["Vegetarian", "Quick", "Beginner Friendly"],
+    tags: ["Vegetarian", "Quick", "Beginner", "Friendly"],
     ingredients: [
       { item: "Black beans", quantity: 2, unit: "cups", category: "Legumes" },
       { item: "Tortillas", quantity: 8, unit: "pcs", category: "Bread" },
@@ -133,7 +133,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "5",
+    id: crypto.randomUUID(),
     name: "Thai Green Curry",
     description: "Fragrant coconut curry with chicken & veggies.",
     cuisine: "Thai",
@@ -142,13 +142,13 @@ export const seedRecipes: Recipe[] = [
     cookTime: 25,
     servings: 4,
     image: "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg",
-    tags: ["Curry", "Spicy", "Comfort Food"],
+    tags: ["Curry", "Spicy", "Comfort", "Food"],
     ingredients: [
       { item: "Chicken thighs", quantity: 400, unit: "g", category: "Meat" },
       { item: "Green curry paste", quantity: 2, unit: "tbsp", category: "Spice" },
       { item: "Coconut milk", quantity: 400, unit: "ml", category: "Dairy" },
       { item: "Thai eggplant", quantity: 6, unit: "pcs", category: "Vegetable" },
-      { item: "Basil", quantity: "1", unit: "tbsp", category: "Herb" },
+      { item: "Basil", quantity: "2", unit: "tsp", category: "Herb" },
     ],
     instructions: [
       "Heat oil and cook curry paste until fragrant.",
@@ -163,7 +163,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "6",
+    id: crypto.randomUUID(),
     name: "Chicken Stir Fry",
     description: "Quick Asian-style stir fry perfect for weeknights.",
     cuisine: "Asian",
@@ -190,7 +190,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "7",
+    id: crypto.randomUUID(),
     name: "Japanese Chicken Katsu",
     description: "Crispy breaded chicken with savory tonkatsu sauce.",
     cuisine: "Japanese",
@@ -199,7 +199,7 @@ export const seedRecipes: Recipe[] = [
     cookTime: 20,
     servings: 2,
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec",
-    tags: ["Crispy", "Comfort Food"],
+    tags: ["Crispy", "Comfort", "Food"],
     ingredients: [
       { item: "Chicken cutlets", quantity: 2, unit: "pcs", category: "Meat" },
       { item: "Panko", quantity: 100, unit: "g", category: "Pantry" },
@@ -218,7 +218,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "8",
+    id: crypto.randomUUID(),
     name: "French Ratatouille",
     description: "Classic Provençal vegetable stew.",
     cuisine: "French",
@@ -248,7 +248,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "9",
+    id: crypto.randomUUID(),
     name: "Indian Butter Chicken",
     description: "Rich and creamy tomato-based curry.",
     cuisine: "Indian",
@@ -277,7 +277,7 @@ export const seedRecipes: Recipe[] = [
   },
 
   {
-    id: "10",
+    id: crypto.randomUUID(),
     name: "Italian Margherita Pizza",
     description: "Simple, classic pizza with tomato, mozzarella, and basil.",
     cuisine: "Italian",
@@ -286,10 +286,10 @@ export const seedRecipes: Recipe[] = [
     cookTime: 15,
     servings: 2,
     image: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg",
-    tags: ["Vegetarian", "Quick", "Beginner Friendly"],
+    tags: ["Vegetarian", "Quick", "Beginner", "Friendly"],
     ingredients: [
       { item: "Pizza dough", quantity: 1, unit: "batch", category: "Bread" },
-      { item: "Tomato sauce", quantity: 1, unit: "cup", category: "Pantry" },
+      { item: "Tomato sauce", quantity: 0.75, unit: "cup", category: "Pantry" },
       { item: "Mozzarella cheese", quantity: 150, unit: "g", category: "Cheese" },
       { item: "Fresh basil", quantity: "1", unit: "tbsp", category: "Herb" },
       { item: "Olive oil", quantity: 1, unit: "tbsp", category: "Pantry" },

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecipes } from "../customHooks/useRecipes";
+import { getRecipes } from "../utils/recipes";
 import RecipeDetailHero from "../components/RecipeDetail/RecipeDetailHero/RecipeDetailHero";
 import RecipeDetails from "../components/RecipeDetail/RecipeDetails/RecipeDetails";
 import RecipeInstructions from "../components/RecipeDetail/RecipeInstructions/RecipeInstructions";
@@ -9,18 +9,15 @@ import RecipeActions from "../components/RecipeDetail/RecipeActions/RecipeAction
 import type { Recipe } from "../types/Recipe";
 
 export default function RecipeDetailPage() {
-  const { id } = useParams<{ id: string }>();
-
-  const { recipes } = useRecipes();
-
-  const recipe = recipes.find((r: Recipe) => r.id === id);
+  const { id } = useParams();
+  const recipe = getRecipes().find((r) => r.id === id) as Recipe | undefined;
 
   const [currentServings, setCurrentServings] = useState(
     recipe?.servings ?? 1
   );
 
   if (!recipe) {
-    return <p className="p-6 text-gray-600">Recipe Not Found</p>;
+    return <p>Recipe Not Found</p>;
   }
 
   return (
@@ -41,7 +38,7 @@ export default function RecipeDetailPage() {
 
             <RecipeInstructions recipe={recipe} />
 
-            {/* NOTES SECTION */}
+            {/* ✅ NOTES SECTION */}
             {recipe.notes && recipe.notes.trim() !== "" && (
               <section className="bg-white rounded-xl shadow-md p-6">
                 <h3 className="text-lg font-semibold mb-2">Notes</h3>

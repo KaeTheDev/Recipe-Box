@@ -1,10 +1,10 @@
 import { LucideArrowUpRight } from "lucide-react";
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { useRecipes } from "../../../customHooks/useRecipes";
+import { getRecipes } from "../../../utils/recipes";
+import type { Recipe } from "../../../types/Recipe";
 
 export default function FeaturedRecipesSection() {
-  const { recipes } = useRecipes();
-
+  const recipes: Recipe[] = getRecipes();
   const featuredRecipes = recipes.filter(r => r.isFeatured);
 
   if (featuredRecipes.length === 0) {

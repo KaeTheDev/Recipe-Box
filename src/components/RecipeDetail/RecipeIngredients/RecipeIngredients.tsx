@@ -15,7 +15,6 @@ export default function RecipeIngredients({
   const factor = currentServings / recipe.servings;
 
   const formatQuantity = (quantity: number) => {
-    // tweak rounding as you like
     const rounded = Math.round(quantity * 10) / 10;
     return rounded;
   };
