@@ -29,3 +29,12 @@ export function addRecipeToShoppingList(recipe: Recipe): void {
   
     saveShoppingList([...items, ...newItems]);
   }
+
+  // UPDATE: Toggle item checked status
+export function toggleShoppingListItem(itemId: string): void {
+    const items = getShoppingList();
+    const updatedItems = items.map((item) =>
+      item.id === itemId ? { ...item, checked: !item.checked } : item
+    );
+    saveShoppingList(updatedItems);
+  }
