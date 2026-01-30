@@ -1,11 +1,18 @@
 import RecipeCard from "../RecipeCard/RecipeCard";
-import { getRecipes } from "../../../utils/recipes";
+import { useRecipes } from "../../../customHooks/useRecipes";
 import { useState, useEffect, useMemo } from "react";
 import { Search, SlidersHorizontal, Heart, Clock, Star } from "lucide-react";
 import type { Recipe } from "../../../types/Recipe";
 
 export default function AllRecipesSection() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  /* ----------------------------------------
+     SOURCE OF TRUTH (HOOK)
+  -----------------------------------------*/
+  const { recipes } = useRecipes();
+
+  /* ----------------------------------------
+     LOCAL STATE
+  -----------------------------------------*/
   const [filtered, setFiltered] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -15,14 +22,15 @@ export default function AllRecipesSection() {
   const [maxTime, setMaxTime] = useState("Any");
   const [tab, setTab] = useState("Filters");
 
+  /* ----------------------------------------
+     INITIAL LOAD / SYNC WITH STORE
+  -----------------------------------------*/
   useEffect(() => {
-    const allRecipes = getRecipes();
-    setRecipes(allRecipes);
-    setFiltered(allRecipes);
-  }, []);
+    setFiltered(recipes);
+  }, [recipes]);
 
   /* ----------------------------------------
-     REAL-TIME SEARCH + TAG MATCHING
+     REAL-TIME SEARCH + FILTERING
   -----------------------------------------*/
   useEffect(() => {
     let result = [...recipes];
@@ -57,7 +65,8 @@ export default function AllRecipesSection() {
       result = result.slice(0, 8);
     } else if (tab === "Time") {
       result = [...result].sort(
-        (a, b) => a.prepTime + a.cookTime - (b.prepTime + b.cookTime)
+        (a, b) =>
+          a.prepTime + a.cookTime - (b.prepTime + b.cookTime)
       );
     }
 
@@ -65,7 +74,7 @@ export default function AllRecipesSection() {
   }, [search, cuisine, difficulty, maxTime, tab, recipes]);
 
   /* ----------------------------------------
-     SEARCH SUGGESTIONS (NAME + TAGS)
+     SEARCH SUGGESTIONS
   -----------------------------------------*/
   const suggestions = useMemo(() => {
     if (!search.trim()) return [];
@@ -74,9 +83,14 @@ export default function AllRecipesSection() {
     const set = new Set<string>();
 
     recipes.forEach(r => {
-      if (r.name.toLowerCase().includes(q)) set.add(r.name);
+      if (r.name.toLowerCase().includes(q)) {
+        set.add(r.name);
+      }
+
       r.tags?.forEach(tag => {
-        if (tag.toLowerCase().includes(q)) set.add(`#${tag}`);
+        if (tag.toLowerCase().includes(q)) {
+          set.add(`#${tag}`);
+        }
       });
     });
 
@@ -88,13 +102,18 @@ export default function AllRecipesSection() {
     setShowSuggestions(false);
   };
 
+  /* ----------------------------------------
+     RENDER
+  -----------------------------------------*/
   return (
     <section className="bg-orange-50 py-10 px-4">
       <div className="mx-auto w-full max-w-5xl flex flex-col gap-6">
         {/* Header */}
         <div>
           <h3 className="text-2xl">All Recipes</h3>
-          <p className="text-sm text-gray-600">{filtered.length} recipes</p>
+          <p className="text-sm text-gray-600">
+            {filtered.length} recipes
+          </p>
         </div>
 
         {/* Search */}
@@ -111,7 +130,9 @@ export default function AllRecipesSection() {
               setSearch(e.target.value);
               setShowSuggestions(true);
             }}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            onBlur={() =>
+              setTimeout(() => setShowSuggestions(false), 150)
+            }
             onFocus={() => setShowSuggestions(true)}
             className="w-full rounded-lg border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
@@ -138,18 +159,63 @@ export default function AllRecipesSection() {
 
         {/* Tabs */}
         <div className="flex items-center gap-3 overflow-x-auto">
-          <FilterTab icon={<SlidersHorizontal size={16} />} label="Filters" active={tab === "Filters"} onClick={() => setTab("Filters")} />
-          <FilterTab icon={<Star size={16} />} label="Recent" active={tab === "Recent"} onClick={() => setTab("Recent")} />
-          <FilterTab icon={<Clock size={16} />} label="Time" active={tab === "Time"} onClick={() => setTab("Time")} />
-          <FilterTab icon={<Heart size={16} />} label="Favorites" active={tab === "Favorites"} onClick={() => setTab("Favorites")} />
+          <FilterTab
+            icon={<SlidersHorizontal size={16} />}
+            label="Filters"
+            active={tab === "Filters"}
+            onClick={() => setTab("Filters")}
+          />
+          <FilterTab
+            icon={<Star size={16} />}
+            label="Recent"
+            active={tab === "Recent"}
+            onClick={() => setTab("Recent")}
+          />
+          <FilterTab
+            icon={<Clock size={16} />}
+            label="Time"
+            active={tab === "Time"}
+            onClick={() => setTab("Time")}
+          />
+          <FilterTab
+            icon={<Heart size={16} />}
+            label="Favorites"
+            active={tab === "Favorites"}
+            onClick={() => setTab("Favorites")}
+          />
         </div>
 
         {/* Filters */}
         <div className="rounded-lg border bg-white p-4 shadow-sm">
           <div className="grid gap-4 sm:grid-cols-3">
-            <FilterSelect label="Cuisine" value={cuisine} onChange={setCuisine} options={["All","Italian","Mexican","Asian","Thai","Japanese","French","Indian","Mediterranean"]} />
-            <FilterSelect label="Difficulty" value={difficulty} onChange={setDifficulty} options={["All","Easy","Medium","Hard"]} />
-            <FilterSelect label="Max Time" value={maxTime} onChange={setMaxTime} options={["Any","< 30 min","< 60 min"]} />
+            <FilterSelect
+              label="Cuisine"
+              value={cuisine}
+              onChange={setCuisine}
+              options={[
+                "All",
+                "Italian",
+                "Mexican",
+                "Asian",
+                "Thai",
+                "Japanese",
+                "French",
+                "Indian",
+                "Mediterranean",
+              ]}
+            />
+            <FilterSelect
+              label="Difficulty"
+              value={difficulty}
+              onChange={setDifficulty}
+              options={["All", "Easy", "Medium", "Hard"]}
+            />
+            <FilterSelect
+              label="Max Time"
+              value={maxTime}
+              onChange={setMaxTime}
+              options={["Any", "< 30 min", "< 60 min"]}
+            />
           </div>
         </div>
 
@@ -160,7 +226,9 @@ export default function AllRecipesSection() {
               No recipes match your search.
             </p>
           ) : (
-            filtered.map(r => <RecipeCard key={r.id} recipe={r} />)
+            filtered.map(recipe => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))
           )}
         </div>
       </div>
@@ -169,10 +237,20 @@ export default function AllRecipesSection() {
 }
 
 /* ----------------------------------------
-   Small Helpers
+   Helpers
 -----------------------------------------*/
 
-function FilterTab({ label, icon, active, onClick }: any) {
+function FilterTab({
+  label,
+  icon,
+  active,
+  onClick,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  active: boolean;
+  onClick: () => void;
+}) {
   return (
     <button
       onClick={onClick}
@@ -188,16 +266,28 @@ function FilterTab({ label, icon, active, onClick }: any) {
   );
 }
 
-function FilterSelect({ label, value, onChange, options }: any) {
+function FilterSelect({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+}) {
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">{label}</label>
+      <label className="block text-sm font-medium mb-1">
+        {label}
+      </label>
       <select
         value={value}
         onChange={e => onChange(e.target.value)}
         className="w-full rounded-md border p-2 text-sm"
       >
-        {options.map((o: string) => (
+        {options.map(o => (
           <option key={o}>{o}</option>
         ))}
       </select>
