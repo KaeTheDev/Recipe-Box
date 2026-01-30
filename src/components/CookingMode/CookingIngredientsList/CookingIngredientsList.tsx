@@ -1,6 +1,6 @@
 import { CheckSquare, Square } from "lucide-react";
 import { useState } from "react";
-import type { Ingredient } from "../../types/Recipe";
+import type { Ingredient } from "../../../types/Recipe";
 
 interface CookingIngredientsListProps {
   ingredients: Ingredient[];

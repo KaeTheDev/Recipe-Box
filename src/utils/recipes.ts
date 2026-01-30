@@ -1,19 +1,42 @@
 import type { Recipe } from "../types/Recipe";
+import { seedRecipes } from "../data/seedData";
 
 const STORAGE_KEY = "recipes";
 
 // READ: Get all recipes 
-export function getRecipes(): Recipe[] {
-    // retrieves a string from localStorage
-    const data = localStorage.getItem(STORAGE_KEY);
-    // if data exists, convert JSON string into an array of Recipe objects
-    // otherwise, return an empty array
-    return data ? JSON.parse(data) : [];
-}
+// export function getRecipes(): Recipe[] {
+//     // retrieves a string from localStorage
+//     const data = localStorage.getItem(STORAGE_KEY);
+//     // if data exists, convert JSON string into an array of Recipe objects
+//     // otherwise, return an empty array
+//     return data ? JSON.parse(data) : [];
+// }
 
 export function saveRecipes(recipes: Recipe[]): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
 }
+
+// DEV UTILITY: Resets all recipes in localStorage back to the original seed data.
+// Useful during development or demos when local changes (favorites, edits, deletes)
+// need to be cleared and the app restored to its initial state.
+export function resetRecipes(): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(seedRecipes));
+}
+
+
+export function getRecipes(): Recipe[] {
+  // Retrieve from localStorage
+  const data = localStorage.getItem(STORAGE_KEY);
+
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    // First run: populate with seed data
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(seedRecipes));
+    return seedRecipes;
+  }
+}
+
 
 // CREATE: Add a new recipe
 export function addRecipe(recipe: Recipe): void {
