@@ -13,3 +13,19 @@ export function getShoppingList(): ShoppingListItem[] {
 function saveShoppingList(items: ShoppingListItem[]): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
 }
+
+// CREATE: Add recipe ingredients to shopping list
+export function addRecipeToShoppingList(recipe: Recipe): void {
+    const items = getShoppingList();
+    
+    const newItems: ShoppingListItem[] = recipe.ingredients.map((ingredient) => ({
+      ...ingredient,
+      id: `${recipe.id}-${ingredient.item}-${Date.now()}-${Math.random()}`,
+      recipeId: recipe.id,
+      recipeName: recipe.name,
+      checked: false,
+      addedAt: new Date().toISOString(),
+    }));
+  
+    saveShoppingList([...items, ...newItems]);
+  }
