@@ -18,7 +18,7 @@ export const seedRecipes: Recipe[] = [
       { item: "Guanciale", quantity: 150, unit: "g", category: "Meat" },
       { item: "Eggs", quantity: 4, unit: "whole", category: "Dairy" },
       { item: "Pecorino Romano", quantity: 100, unit: "g", category: "Cheese" },
-      { item: "Black pepper", quantity: "to taste", unit: "", category: "Spice" },
+      { item: "Black pepper", quantity: "1", unit: "tsp", category: "Spice" },
     ],
     instructions: [
       "Bring a large pot of salted water to boil and cook the spaghetti al dente.",
@@ -148,7 +148,7 @@ export const seedRecipes: Recipe[] = [
       { item: "Green curry paste", quantity: 2, unit: "tbsp", category: "Spice" },
       { item: "Coconut milk", quantity: 400, unit: "ml", category: "Dairy" },
       { item: "Thai eggplant", quantity: 6, unit: "pcs", category: "Vegetable" },
-      { item: "Basil", quantity: "handful", unit: "", category: "Herb" },
+      { item: "Basil", quantity: "1", unit: "tbsp", category: "Herb" },
     ],
     instructions: [
       "Heat oil and cook curry paste until fragrant.",
@@ -289,9 +289,9 @@ export const seedRecipes: Recipe[] = [
     tags: ["Vegetarian", "Quick", "Beginner Friendly"],
     ingredients: [
       { item: "Pizza dough", quantity: 1, unit: "batch", category: "Bread" },
-      { item: "Tomato sauce", quantity: 0.75, unit: "cup", category: "Pantry" },
+      { item: "Tomato sauce", quantity: 1, unit: "cup", category: "Pantry" },
       { item: "Mozzarella cheese", quantity: 150, unit: "g", category: "Cheese" },
-      { item: "Fresh basil", quantity: "handful", unit: "", category: "Herb" },
+      { item: "Fresh basil", quantity: "1", unit: "tbsp", category: "Herb" },
       { item: "Olive oil", quantity: 1, unit: "tbsp", category: "Pantry" },
     ],
     instructions: [
