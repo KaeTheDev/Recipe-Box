@@ -45,4 +45,12 @@ export function removeShoppingListItem(itemId: string): void {
     const updatedItems = items.filter((item) => item.id !== itemId);
     saveShoppingList(updatedItems);
   }
+
+  // DELETE: Remove all items from a specific recipe
+export function removeRecipeFromShoppingList(recipeId: string): void {
+    const items = getShoppingList();
+    const updatedItems = items.filter((item) => item.recipeId !== recipeId);
+    saveShoppingList(updatedItems);
+  }
+
   
