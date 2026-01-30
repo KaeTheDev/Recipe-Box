@@ -103,3 +103,41 @@ export function getShoppingListStats(): ShoppingListStats {
   
     return { total, checked, unchecked, percentComplete };
   }
+
+
+  // Aggregate Shopping List
+  export function getAggregatedShoppingList(): GroupedItems {
+    const items = getShoppingList();
+    const aggregated: Record<string, ShoppingListItem & { recipes: string[] }> = {};
+  
+    items.forEach(item => {
+      // Key = same item name + unit (so "2 cups milk" + "1 cup milk" combine)
+      const key = `${item.item.toLowerCase().trim()}-${item.unit.toLowerCase().trim()}`;
+      
+      if (aggregated[key]) {
+        // Sum quantities
+        const existingQty = Number(aggregated[key].quantity) || 0;
+        const newQty = Number(item.quantity) || 0;
+        aggregated[key].quantity = existingQty + newQty;
+        
+        // Track which recipes need this ingredient
+        if (!aggregated[key].recipes.includes(item.recipeName)) {
+          aggregated[key].recipes.push(item.recipeName);
+        }
+      } else {
+        // First time seeing this ingredient
+        aggregated[key] = { ...item, recipes: [item.recipeName] };
+      }
+    });
+  
+    // Group by category
+    const grouped: GroupedItems = {};
+    Object.values(aggregated).forEach(item => {
+      const category = item.category || "Other";
+      if (!grouped[category]) grouped[category] = [];
+      grouped[category].push(item);
+    });
+  
+    return grouped;
+  }
+  
