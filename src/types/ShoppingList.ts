@@ -6,6 +6,7 @@ export interface ShoppingListItem extends Ingredient {
     recipeName: string;
     checked: boolean;
     addedAt: string;
+    recipes?: string[];
 }
 
 export interface GroupedItems {
