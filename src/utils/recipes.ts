@@ -3,15 +3,7 @@ import { seedRecipes } from "../data/seedData";
 
 const STORAGE_KEY = "recipes";
 
-// READ: Get all recipes 
-// export function getRecipes(): Recipe[] {
-//     // retrieves a string from localStorage
-//     const data = localStorage.getItem(STORAGE_KEY);
-//     // if data exists, convert JSON string into an array of Recipe objects
-//     // otherwise, return an empty array
-//     return data ? JSON.parse(data) : [];
-// }
-
+// Save Recipes
 export function saveRecipes(recipes: Recipe[]): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
 }
@@ -23,7 +15,7 @@ export function resetRecipes(): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(seedRecipes));
 }
 
-
+// READ: Get all recipes 
 export function getRecipes(): Recipe[] {
   // Retrieve from localStorage
   const data = localStorage.getItem(STORAGE_KEY);
