@@ -70,3 +70,25 @@ export function isRecipeInShoppingList(recipeId: string): boolean {
     const items = getShoppingList();
     return items.some((item) => item.recipeId === recipeId);
   }
+
+  // QUERY: Get items grouped by category
+export function getGroupedShoppingList(): GroupedItems {
+    const items = getShoppingList();
+    
+    const grouped = items.reduce((acc, item) => {
+      const category = item.category || "Other";
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {} as GroupedItems);
+  
+    // Sort categories alphabetically
+    return Object.keys(grouped)
+      .sort()
+      .reduce((acc, key) => {
+        acc[key] = grouped[key];
+        return acc;
+      }, {} as GroupedItems);
+  }
