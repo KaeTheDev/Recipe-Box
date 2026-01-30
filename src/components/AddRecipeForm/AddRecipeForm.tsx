@@ -1,7 +1,6 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import type { Recipe, RecipeProps } from "../../types/Recipe";
-import { toast } from "react-hot-toast";
 
 export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
   const [form, setForm] = useState<Recipe>({
@@ -31,8 +30,8 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     if (!form.name.trim()) newErrors.name = "Recipe name is required";
     if (!form.description.trim()) newErrors.description = "Description is required";
 
-    if (form.tags.some(tag => tag.includes(" ") || tag === ""))
-      newErrors.tags = "Tags must be comma-separated and cannot contain spaces";
+    if (form.tags.some(tag => tag === ""))
+      newErrors.tags = "Tags cannot be empty";
 
     if (form.prepTime < 0) newErrors.prepTime = "Prep time cannot be negative";
     if (form.cookTime < 0) newErrors.cookTime = "Cook time cannot be negative";
@@ -52,39 +51,6 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     };
 
     onSubmit(recipeToSave);
-
-    // Scroll to top so toast is visible
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Show toast notification
-    toast.success(initialData ? "Recipe updated successfully!" : "Recipe added successfully!", {
-      duration: 4000,
-      position: "top-center",
-    });
-
-    // Reset form if creating new recipe
-    if (!initialData) {
-      setForm({
-        id: "",
-        name: "",
-        description: "",
-        cuisine: "All",
-        difficulty: "Easy",
-        prepTime: 0,
-        cookTime: 0,
-        servings: 1,
-        image: "",
-        tags: [],
-        ingredients: [],
-        instructions: [],
-        notes: "",
-        isFavorite: false,
-        isFeatured: false,
-        createdAt: new Date().toISOString(),
-      });
-    }
-
-    setErrors({});
   };
 
   const handleFieldChange = (field: keyof Recipe) => (
