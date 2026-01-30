@@ -38,3 +38,11 @@ export function toggleShoppingListItem(itemId: string): void {
     );
     saveShoppingList(updatedItems);
   }
+
+  // DELETE: Remove a specific item
+export function removeShoppingListItem(itemId: string): void {
+    const items = getShoppingList();
+    const updatedItems = items.filter((item) => item.id !== itemId);
+    saveShoppingList(updatedItems);
+  }
+  
