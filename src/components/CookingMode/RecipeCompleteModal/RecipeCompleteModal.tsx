@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { X, Heart, Share2, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toggleFavorite } from "../../../utils/recipes";
+import { toggleFavorite, getRecipes } from "../../../utils/recipes";
 import type { Recipe } from "../../../types/Recipe";
+import toast from "react-hot-toast";
 
 interface RecipeCompleteModalProps {
   recipe: Recipe;
@@ -11,6 +12,9 @@ interface RecipeCompleteModalProps {
 
 export default function RecipeCompleteModal({ recipe, onClose }: RecipeCompleteModalProps) {
   const navigate = useNavigate();
+
+  // Check if this recipe is already favorited
+  const isFavorited = getRecipes().some(r => r.id === recipe.id && r.isFavorite);
 
   // Close modal on ESC key
   useEffect(() => {
@@ -23,15 +27,24 @@ export default function RecipeCompleteModal({ recipe, onClose }: RecipeCompleteM
 
   // Add to Favorites and go to Favorites page
   const handleFavorite = () => {
-    toggleFavorite(recipe.id);
-    onClose(); // close modal first
-    navigate("/favorites"); // navigate to favorites page
+    if (!isFavorited) {
+      toggleFavorite(recipe.id);
+      onClose(); // close modal first
+      navigate("/favorites"); // navigate to favorites page
+    }
   };
 
-  // Share button (coming soon)
-  const handleShare = () => {
-    alert("Share feature coming soon!");
+  // Share button
+  const handleShare = async () => {
+    try {
+      const url = `${window.location.origin}/recipe/${recipe.id}`;
+      await navigator.clipboard.writeText(url);
+      toast.success("Recipe link copied to clipboard!", { duration: 3000, position: "top-center" });
+    } catch (err) {
+      toast.error("Failed to copy recipe link.", { duration: 3000, position: "top-center" });
+    }
   };
+  
 
   // Back to Home
   const handleHome = () => {
@@ -75,10 +88,15 @@ export default function RecipeCompleteModal({ recipe, onClose }: RecipeCompleteM
         <div className="flex flex-col sm:flex-row gap-3 w-full">
           <button
             onClick={handleFavorite}
-            className="flex-1 flex items-center justify-center gap-2 bg-red-500 text-white px-4 py-3 rounded-lg hover:bg-red-600 transition font-semibold"
+            disabled={isFavorited} // ✅ disable if already favorited
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition font-semibold
+              ${isFavorited
+                ? "bg-gray-400 text-white cursor-not-allowed"
+                : "bg-red-500 text-white hover:bg-red-600"}
+            `}
           >
             <Heart size={18} />
-            Add to Favorites
+            {isFavorited ? "Already Favorited" : "Add to Favorites"}
           </button>
 
           <button
