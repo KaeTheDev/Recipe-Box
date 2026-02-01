@@ -38,7 +38,7 @@ export default function AddRecipe() {
       });
       
       // Navigate to home
-      navigate("/");
+      navigate(`/recipes/${recipe.id}`);
     }
   };
 

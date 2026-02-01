@@ -143,13 +143,6 @@ Project root
 
 ```
 
-
-# Project root
-.dockerignore
-.gitignore
-docker-compose.yml
-Dockerfile
-
 ## Accessibility (a11y)
 - Ensured sufficient contrast for text and interactive elements
 - Focus states are visible on buttons and links
