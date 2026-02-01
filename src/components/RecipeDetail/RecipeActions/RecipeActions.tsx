@@ -48,6 +48,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
       {/* Start Cooking */}
       <button
         onClick={handleStartCooking}
+        aria-label="Start Cooking"
         className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-lg transition-colors"
       >
         <Play size={18} />
@@ -57,6 +58,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
       {/* Add to Shopping List */}
       <button
         onClick={handleAddToList}
+        aria-label={inList ? "Remove from shopping list" : "Add to shopping list"}
         className={`w-full flex items-center justify-center gap-2 font-semibold py-4 rounded-lg transition-colors ${
           inList
             ? "bg-green-700 hover:bg-green-800 text-white"
@@ -82,6 +84,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
 
       {/* Edit Recipe */}
       <button
+        aria-label="Edit Recipe"
         onClick={handleEdit}
         className="w-full flex items-center justify-center gap-2 bg-gray-100 text-gray-700 hover:bg-gray-200 font-semibold py-4 rounded-lg transition-colors"
       >
@@ -91,6 +94,7 @@ export default function RecipeActions({ recipe }: RecipeComponentProps) {
 
       {/* Delete Recipe */}
       <button
+        aria-label="Delete Recipe"
         onClick={handleDelete}
         className="w-full flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-4 rounded-lg transition-colors"
       >
