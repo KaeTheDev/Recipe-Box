@@ -30,16 +30,23 @@ export default function CategorySection({
       </div>
 
       {/* Items */}
-      <div className="divide-y divide-gray-100">
+      <ul className="divide-y divide-gray-100">
         {items.map((item) => (
-          <div
+          <li
             key={item.id}
             className={`px-6 py-4 flex items-center gap-4 hover:bg-gray-50 transition-colors ${
               item.checked ? "opacity-50" : ""
             }`}
           >
             {/* Checkbox */}
-            <button onClick={() => onToggle(item.id)} className="shrink-0">
+            <button
+              onClick={() => onToggle(item.id)}
+              className="shrink-0"
+              aria-pressed={item.checked}
+              aria-label={`${item.checked ? "Uncheck" : "Check"} ingredient: ${
+                item.item
+              }`}
+            >
               <div
                 className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all ${
                   item.checked
@@ -53,6 +60,7 @@ export default function CategorySection({
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -98,12 +106,13 @@ export default function CategorySection({
             <button
               onClick={() => onRemove(item.id)}
               className="shrink-0 text-gray-400 hover:text-red-500 transition-colors"
+              aria-label={`Remove ${item.item}`}
             >
               <X size={20} />
             </button>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
