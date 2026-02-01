@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { X, Heart, Share2, Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toggleFavorite, getRecipes } from "../../../utils/recipes";
@@ -15,8 +15,8 @@ export default function RecipeCompleteModal({
   onClose,
 }: RecipeCompleteModalProps) {
   const navigate = useNavigate();
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  // Check if this recipe is already favorited
   const isFavorited = getRecipes().some(
     (r) => r.id === recipe.id && r.isFavorite
   );
@@ -30,16 +30,49 @@ export default function RecipeCompleteModal({
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  // Add to Favorites and go to Favorites page
+  // Focus trap
+  useEffect(() => {
+    const focusableElements = modalRef.current?.querySelectorAll<
+      HTMLButtonElement
+    >("button");
+    if (!focusableElements || focusableElements.length === 0) return;
+
+    const firstEl = focusableElements[0];
+    const lastEl = focusableElements[focusableElements.length - 1];
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleTab);
+    // focus first button initially
+    firstEl.focus();
+
+    return () => window.removeEventListener("keydown", handleTab);
+  }, []);
+
   const handleFavorite = () => {
     if (!isFavorited) {
       toggleFavorite(recipe.id);
-      onClose(); // close modal first
-      navigate("/favorites"); // navigate to favorites page
+      onClose();
+      navigate("/favorites");
     }
   };
 
-  // Share button
   const handleShare = () => {
     toast("Share feature coming soon!", {
       duration: 3000,
@@ -47,13 +80,11 @@ export default function RecipeCompleteModal({
     });
   };
 
-  // Back to Home
   const handleHome = () => {
     navigate("/");
     onClose();
   };
 
-  // Click on backdrop closes modal
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
@@ -63,18 +94,24 @@ export default function RecipeCompleteModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
       onClick={handleBackdropClick}
     >
-      <div className="relative bg-white rounded-xl max-w-md w-full p-6 flex flex-col items-center gap-4 animate-scale-in">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        className="relative bg-white rounded-xl max-w-md w-full p-6 flex flex-col items-center gap-4 animate-scale-in"
+      >
         {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 p-2 rounded-full hover:bg-gray-100 transition"
+          aria-label="Close modal"
         >
           <X size={20} />
         </button>
 
         {/* Success Checkmark */}
         <div className="w-20 h-20 flex items-center justify-center rounded-full bg-green-500 animate-bounce">
-          <Heart size={36} className="text-white" />
+          <Heart size={36} className="text-white" aria-hidden="true" />
         </div>
 
         {/* Message */}
@@ -89,7 +126,7 @@ export default function RecipeCompleteModal({
         <div className="flex flex-col sm:flex-row gap-3 w-full">
           <button
             onClick={handleFavorite}
-            disabled={isFavorited} // ✅ disable if already favorited
+            disabled={isFavorited}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition font-semibold
               ${
                 isFavorited
