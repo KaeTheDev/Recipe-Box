@@ -26,6 +26,7 @@ export default function CookingStepCard({
           className={`w-8 h-8 flex items-center justify-center rounded-full font-bold text-white ${
             isCompleted ? "bg-green-500" : "bg-orange-500"
           }`}
+          aria-label={`Step ${stepNumber} of ${totalSteps}`}
         >
           {stepNumber}
         </span>
@@ -41,7 +42,7 @@ export default function CookingStepCard({
         className={`self-start flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-white transition
           ${isCompleted ? "bg-green-500" : "bg-orange-500 hover:bg-orange-600"}`}
       >
-        <Check size={18} />
+        <Check size={18} aria-hidden="true" />
         {isCompleted ? "Completed" : "Mark as Done"}
       </button>
     </div>
