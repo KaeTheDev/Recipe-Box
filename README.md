@@ -1,5 +1,23 @@
 # Recipe Box – Technical Assessment
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Quick Start](#quick-start)
+   - [Setup](#setup)
+   - [Docker](#docker-required)
+3. [Screenshots / GIFs](#screenshots--gifs)
+4. [Tech Stack](#tech-stack)
+5. [Folder Structure](#folder-structure)
+6. [Accessibility (a11y)](#accessibility-a11y)
+7. [UX Decisions](#ux-decisions)
+8. [Assumptions](#assumptions)
+9. [Trade-offs & Challenges](#trade-offs--challenges)
+10. [Future Improvements](#future-improvements)
+11. [Time Spent](#time-spent)
+12. [Resources](#resources)
+13. [Reflection](#reflection)
+
 ## Overview
 
 This project is a front-end recipe application built as part of a technical assessment. The goal was to demonstrate not only technical proficiency, but also UX reasoning, design sensibility, and the ability to make pragmatic trade-offs under time constraints.
@@ -33,8 +51,8 @@ The application will be available at `http://localhost:3000`
 #### 2. Shopping List Aggregation
 ![Shopping List](assets/gifs/shopping-list.gif)
 
-#### 3. Dark Mode & Toast Feedback
-![Dark Mode & Toast](assets/gifs/dark-mode.gif)
+#### 3. Toast Feedback
+![Toast](assets/gifs/dark-mode.gif)
 
 
 ## Tech Stack
@@ -57,64 +75,71 @@ TypeScript with React helped enforce clear data contracts and reduced runtime er
 
 ## Folder Structure
 src/
-├─ assets/                # Images, icons, and static assets
-├─ components/            # Reusable UI components
-│  ├─ AddRecipeForm/
-│  │   └─ AddRecipeForm.tsx
-│  ├─ Cooking/
-│  │   ├─ AllStepsList/
-│  │   ├─ CookingIngredientsList/
-│  │   ├─ CookingModeHeader/
-│  │   ├─ CookingStepCard/
-│  │   └─ RecipeCompleteModal/
-│  ├─ Cuisine/
-│  │   ├─ CuisineCard/
-│  │   └─ ExploreCuisineSection/
-│  ├─ Home/
-│  │   ├─ AllRecipesSection/
-│  │   ├─ FeaturedRecipesSection/
-│  │   ├─ HeroSection/
-│  │   └─ RecipeCard/
-│  ├─ QuickPick/
-│  │   ├─ QuickPickCard/
-│  │   └─ QuickPickSection/
-│  ├─ RecipeDetail/
-│  │   ├─ RecipeActions/
-│  │   ├─ RecipeDetailHero/
-│  │   ├─ RecipeDetails/
-│  │   ├─ RecipeIngredients/
-│  │   └─ RecipeInstructions/
-│  ├─ ServingAdjuster/
-│  │   └─ ServingAdjuster.tsx
-│  ├─ Shared/
-│  │   └─ Navbar/
-│  │       └─ Navbar.tsx
-│  └─ Shopping/
-│      ├─ CategorySection/
-│      └─ EmptySection/
-├─ config/
-│  └─ cuisineImages.ts
-├─ data/
-│  └─ seedData.ts
-├─ pages/
-│  ├─ AddRecipePage.tsx
-│  ├─ CookingPage.tsx
-│  ├─ CuisineRecipesPage.tsx
-│  ├─ FavoritePage.tsx
-│  ├─ HomePage.tsx
-│  ├─ QuickPickPage.tsx
-│  ├─ RecipeDetailPage.tsx
-│  └─ ShoppingPage.tsx
-├─ types/
-│  ├─ Recipe.ts
-│  ├─ RecipeProps.ts
-│  └─ ShoppingList.ts
-├─ utils/
-│  ├─ recipes.ts
-│  └─ shoppingList.ts
-├─ App.tsx
-├─ index.css
-└─ main.tsx
+  assets/
+  components/
+    AddRecipeForm/
+      AddRecipeForm.tsx
+    Cooking/
+      AllStepsList/
+      CookingIngredientsList/
+      CookingModeHeader/
+      CookingStepCard/
+      RecipeCompleteModal/
+    Cuisine/
+      CuisineCard/
+      ExploreCuisineSection/
+    Home/
+      AllRecipesSection/
+      FeaturedRecipesSection/
+      HeroSection/
+      RecipeCard/
+    QuickPick/
+      QuickPickCard/
+      QuickPickSection/
+    RecipeDetail/
+      RecipeActions/
+      RecipeDetailHero/
+      RecipeDetails/
+      RecipeIngredients/
+      RecipeInstructions/
+    ServingAdjuster/
+      ServingAdjuster.tsx
+    Shared/
+      Navbar/
+        Navbar.tsx
+    Shopping/
+      CategorySection/
+      EmptySection/
+  config/
+    cuisineImages.ts
+  data/
+    seedData.ts
+  pages/
+    AddRecipePage.tsx
+    CookingPage.tsx
+    CuisineRecipesPage.tsx
+    FavoritePage.tsx
+    HomePage.tsx
+    QuickPickPage.tsx
+    RecipeDetailPage.tsx
+    ShoppingPage.tsx
+  types/
+    Recipe.ts
+    RecipeProps.ts
+    ShoppingList.ts
+  utils/
+    recipes.ts
+    shoppingList.ts
+  App.tsx
+  index.css
+  main.tsx
+
+Project root
+  .dockerignore
+  .gitignore
+  docker-compose.yml
+  Dockerfile
+
 
 # Project root
 .dockerignore
@@ -123,7 +148,7 @@ docker-compose.yml
 Dockerfile
 
 ## Accessibility (a11y)
-- Ensured sufficient contrast for text and interactive elements (especially in dark mode)
+- Ensured sufficient contrast for text and interactive elements
 - Focus states are visible on buttons and links
 - Used semantic HTML elements (buttons, headings, lists) for better screen reader support
 - Aria labels added for interactive icons (e.g., favorite button, navigation icons)
