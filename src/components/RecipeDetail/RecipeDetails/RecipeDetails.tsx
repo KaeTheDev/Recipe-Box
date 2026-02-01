@@ -19,18 +19,18 @@ export default function RecipeDetails({
     <section className="bg-white rounded-3xl shadow-2xl border border-white/50 p-6 sm:p-8">
       {/* Stats Row */}
       <div className="flex justify-center">
-        <div className="flex gap-10 text-gray-700">
+        <dl className="flex gap-10 text-gray-700">
           {/* Prep Time */}
           <div className="flex flex-col items-center">
-            <Clock size={20} className="text-orange-500 mb-1" />
-            <p className="font-semibold text-sm sm:text-base">
-              {recipe.cookTime}
-            </p>
-            <p className="text-xs sm:text-sm text-gray-500">minutes</p>
+            <dt className="sr-only">Prep Time</dt>
+            <Clock size={20} className="text-orange-500 mb-1" aria-hidden="true" />
+            <dd className="font-semibold text-sm sm:text-base">{recipe.cookTime}</dd>
+            <dd className="text-xs sm:text-sm text-gray-500">minutes</dd>
           </div>
 
           {/* Servings */}
           <div className="flex flex-col items-center">
+            <dt className="sr-only">Servings</dt>
             <ServingAdjuster
               currentServings={currentServings}
               originalServings={recipe.servings}
@@ -40,13 +40,12 @@ export default function RecipeDetails({
 
           {/* Difficulty */}
           <div className="flex flex-col items-center">
-            <Flame size={20} className="text-orange-500 mb-1" />
-            <p className="font-semibold text-sm sm:text-base">
-              {recipe.difficulty}
-            </p>
-            <p className="text-xs sm:text-sm text-gray-500">level</p>
+            <dt className="sr-only">Difficulty Level</dt>
+            <Flame size={20} className="text-orange-500 mb-1" aria-hidden="true" />
+            <dd className="font-semibold text-sm sm:text-base">{recipe.difficulty}</dd>
+            <dd className="text-xs sm:text-sm text-gray-500">level</dd>
           </div>
-        </div>
+        </dl>
       </div>
 
       {/* Description */}
