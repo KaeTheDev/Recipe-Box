@@ -67,7 +67,7 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
     onSubmit(recipeToSave);
   };
 
-  // Field handlers remain unchanged
+  // Field handlers
   const handleFieldChange = (field: keyof Recipe) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
@@ -94,6 +94,9 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
         updated[index][field] = e.target.value;
       }
       setForm({ ...form, ingredients: updated });
+
+      // Instant validation
+      validate();
     };
 
   const handleInstructionChange =
@@ -101,124 +104,133 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
       const updated = [...form.instructions];
       updated[index] = e.target.value;
       setForm({ ...form, instructions: updated });
+
+      // Instant validation
+      validate();
     };
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <section className="flex justify-center bg-orange-50 py-10 px-4">
-          <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 flex flex-col gap-6">
-            <h2 className="text-2xl font-semibold text-gray-800">
-              {initialData ? "Update Recipe" : "Add Recipe"}
-            </h2>
-  
-            {/* Recipe Name */}
+  return (
+    <form onSubmit={handleSubmit}>
+      <section className="flex justify-center bg-orange-50 py-10 px-4">
+        <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-6 flex flex-col gap-6">
+          <h2 className="text-2xl font-semibold text-gray-800">
+            {initialData ? "Update Recipe" : "Add Recipe"}
+          </h2>
+
+          {/* Recipe Name */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Recipe Name</label>
+            <input
+              value={form.name}
+              onChange={handleFieldChange("name")}
+              type="text"
+              placeholder="Classic Mac and Cheese"
+              className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+          </div>
+
+          {/* Description */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              value={form.description}
+              onChange={handleFieldChange("description")}
+              placeholder="Short description..."
+              className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
+          </div>
+
+          {/* Cuisine & Difficulty */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Recipe Name</label>
-              <input
-                value={form.name}
-                onChange={handleFieldChange("name")}
-                type="text"
-                placeholder="Classic Mac and Cheese"
+              <label className="text-sm font-medium text-gray-700">Cuisine</label>
+              <select
+                value={form.cuisine}
+                onChange={handleFieldChange("cuisine")}
                 className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
-              {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+              >
+                <option>All</option>
+                <option>American</option>
+                <option>Italian</option>
+                <option>Italian American</option>
+                <option>Mexican</option>
+                <option>Asian</option>
+                <option>Thai</option>
+                <option>Japanese</option>
+                <option>French</option>
+                <option>Indian</option>
+              </select>
             </div>
-  
-            {/* Description */}
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Description</label>
-              <textarea
-                value={form.description}
-                onChange={handleFieldChange("description")}
-                placeholder="Short description..."
-                className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
-              {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
-            </div>
-  
-            {/* Cuisine & Difficulty */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">Cuisine</label>
-                <select
-                  value={form.cuisine}
-                  onChange={handleFieldChange("cuisine")}
-                  className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                >
-                  <option>All</option>
-                  <option>American</option>
-                  <option>Italian</option>
-                  <option>Italian American</option>
-                  <option>Mexican</option>
-                  <option>Asian</option>
-                  <option>Thai</option>
-                  <option>Japanese</option>
-                  <option>French</option>
-                  <option>Indian</option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">Difficulty</label>
-                <select
-                  value={form.difficulty}
-                  onChange={handleFieldChange("difficulty")}
-                  className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                >
-                  <option>Easy</option>
-                  <option>Medium</option>
-                  <option>Hard</option>
-                </select>
-              </div>
-            </div>
-  
-            {/* Times & Servings */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {["prepTime", "cookTime", "servings"].map((field) => (
-                <div key={field} className="flex flex-col gap-1">
-                  <label className="text-sm font-medium text-gray-700">
-                    {field === "prepTime"
-                      ? "Prep Time (min)"
-                      : field === "cookTime"
-                      ? "Cook Time (min)"
-                      : "Servings"}
-                  </label>
-                  <input
-                    type="number"
-                    min={field === "servings" ? 1 : 0}
-                    step={1}
-                    value={form[field as keyof Recipe] as number}
-                    onChange={handleFieldChange(field as keyof Recipe)}
-                    className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  />
-                  {errors[field] && <p className="text-red-500 text-xs">{errors[field]}</p>}
-                </div>
-              ))}
-            </div>
-  
-            {/* Tags */}
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Tags</label>
-              <input
-                type="text"
-                placeholder="quick,family,vegetarian"
-                value={form.tags.join(",")}
-                onChange={handleFieldChange("tags")}
+              <label className="text-sm font-medium text-gray-700">Difficulty</label>
+              <select
+                value={form.difficulty}
+                onChange={handleFieldChange("difficulty")}
                 className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
-              {errors.tags && <p className="text-red-500 text-xs">{errors.tags}</p>}
+              >
+                <option>Easy</option>
+                <option>Medium</option>
+                <option>Hard</option>
+              </select>
             </div>
-  
-            {/* Ingredients */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">Ingredients</label>
-              {form.ingredients.map((ing, i) => (
-                <div key={i} className="grid grid-cols-4 gap-2">
+          </div>
+
+          {/* Times & Servings */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {["prepTime", "cookTime", "servings"].map((field) => (
+              <div key={field} className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">
+                  {field === "prepTime"
+                    ? "Prep Time (min)"
+                    : field === "cookTime"
+                    ? "Cook Time (min)"
+                    : "Servings"}
+                </label>
+                <input
+                  type="number"
+                  min={field === "servings" ? 1 : 0}
+                  step={1}
+                  value={form[field as keyof Recipe] as number}
+                  onChange={handleFieldChange(field as keyof Recipe)}
+                  className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+                />
+                {errors[field] && <p className="text-red-500 text-xs">{errors[field]}</p>}
+              </div>
+            ))}
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Tags</label>
+            <input
+              type="text"
+              placeholder="quick,family,vegetarian"
+              value={form.tags.join(",")}
+              onChange={handleFieldChange("tags")}
+              className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+            {errors.tags && <p className="text-red-500 text-xs">{errors.tags}</p>}
+          </div>
+
+          {/* Ingredients */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Ingredients</label>
+            {form.ingredients.map((ing, i) => (
+              <div key={i} className="grid grid-cols-4 gap-2">
+                <div className="flex flex-col">
                   <input
                     value={ing.item}
                     onChange={handleIngredientChange(i, "item")}
                     placeholder="Name"
                     className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                   />
+                  {errors[`ingredient-${i}-item`] && (
+                    <p className="text-red-500 text-xs">{errors[`ingredient-${i}-item`]}</p>
+                  )}
+                </div>
+                <div className="flex flex-col">
                   <input
                     value={ing.quantity}
                     onChange={handleIngredientChange(i, "quantity")}
@@ -228,130 +240,144 @@ export default function AddRecipeForm({ onSubmit, initialData }: RecipeProps) {
                     step={0.1}
                     className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                   />
+                  {errors[`ingredient-${i}-quantity`] && (
+                    <p className="text-red-500 text-xs">{errors[`ingredient-${i}-quantity`]}</p>
+                  )}
+                </div>
+                <div className="flex flex-col">
                   <input
                     value={ing.unit}
                     onChange={handleIngredientChange(i, "unit")}
                     placeholder="Unit"
                     className="border rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                   />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setForm({
-                        ...form,
-                        ingredients: form.ingredients.filter((_, idx) => idx !== i),
-                      })
-                    }
-                    className="text-red-500 text-sm"
-                  >
-                    Remove
-                  </button>
+                  {errors[`ingredient-${i}-unit`] && (
+                    <p className="text-red-500 text-xs">{errors[`ingredient-${i}-unit`]}</p>
+                  )}
                 </div>
-              ))}
-              <button
-                type="button"
-                onClick={() =>
-                  setForm({
-                    ...form,
-                    ingredients: [
-                      ...form.ingredients,
-                      { item: "", quantity: "", unit: "", category: "" },
-                    ],
-                  })
-                }
-                className="flex items-center gap-2 text-orange-500 text-sm"
-              >
-                <Plus size={16} /> Add Ingredient
-              </button>
-            </div>
-  
-            {/* Instructions */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">Instructions</label>
-              {form.instructions.map((step, i) => (
-                <div key={i} className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      ingredients: form.ingredients.filter((_, idx) => idx !== i),
+                    })
+                  }
+                  className="text-red-500 text-sm self-end"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() =>
+                setForm({
+                  ...form,
+                  ingredients: [
+                    ...form.ingredients,
+                    { item: "", quantity: "", unit: "", category: "" },
+                  ],
+                })
+              }
+              className="flex items-center gap-2 text-orange-500 text-sm"
+            >
+              <Plus size={16} /> Add Ingredient
+            </button>
+          </div>
+
+          {/* Instructions */}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-700">Instructions</label>
+            {form.instructions.map((step, i) => (
+              <div key={i} className="flex gap-2">
+                <div className="flex flex-col w-full">
                   <input
                     value={step}
                     onChange={handleInstructionChange(i)}
                     placeholder={`Step ${i + 1}`}
                     className="border rounded p-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-orange-400"
                   />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setForm({
-                        ...form,
-                        instructions: form.instructions.filter((_, idx) => idx !== i),
-                      })
-                    }
-                    className="text-red-500 text-sm"
-                  >
-                    Remove
-                  </button>
+                  {errors[`instruction-${i}`] && (
+                    <p className="text-red-500 text-xs">{errors[`instruction-${i}`]}</p>
+                  )}
                 </div>
-              ))}
-              <button
-                type="button"
-                onClick={() => setForm({ ...form, instructions: [...form.instructions, ""] })}
-                className="flex items-center gap-2 text-orange-500 text-sm"
-              >
-                <Plus size={16} /> Add Step
-              </button>
-            </div>
-  
-            {/* Notes */}
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Notes (optional)</label>
-              <textarea
-                value={form.notes}
-                onChange={handleFieldChange("notes")}
-                className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
-            </div>
-  
-            {/* Image */}
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">Recipe Image URL</label>
-              <input
-                type="text"
-                placeholder="https://..."
-                value={form.image}
-                onChange={handleFieldChange("image")}
-                className="border rounded p-2 text-sm"
-              />
-              {form.image && (
-                <img
-                  src={form.image}
-                  alt="Preview"
-                  className="mt-2 w-32 h-32 object-cover rounded"
-                  onError={(e) => (e.currentTarget.style.display = "none")}
-                />
-              )}
-            </div>
-  
-            {/* Featured */}
-            <div className="flex items-center gap-2 mt-2">
-              <input
-                type="checkbox"
-                checked={form.isFeatured}
-                onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })}
-                id="isFeatured"
-                className="h-4 w-4"
-              />
-              <label htmlFor="isFeatured" className="text-sm text-gray-700">
-                Featured Recipe
-              </label>
-            </div>
-  
-            {/* Submit */}
+                <button
+                  type="button"
+                  onClick={() =>
+                    setForm({
+                      ...form,
+                      instructions: form.instructions.filter((_, idx) => idx !== i),
+                    })
+                  }
+                  className="text-red-500 text-sm self-end"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
             <button
-              type="submit"
-              className="bg-orange-500 text-white font-semibold rounded py-2 hover:bg-orange-600"
+              type="button"
+              onClick={() => setForm({ ...form, instructions: [...form.instructions, ""] })}
+              className="flex items-center gap-2 text-orange-500 text-sm"
             >
-              {initialData ? "Update Recipe" : "Add Recipe"}
+              <Plus size={16} /> Add Step
             </button>
           </div>
-        </section>
-      </form>
-    );
-  }  
+
+          {/* Notes */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Notes (optional)</label>
+            <textarea
+              value={form.notes}
+              onChange={handleFieldChange("notes")}
+              className="border rounded p-2 text-sm h-16 resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
+            />
+          </div>
+
+          {/* Image */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Recipe Image URL</label>
+            <input
+              type="text"
+              placeholder="https://..."
+              value={form.image}
+              onChange={handleFieldChange("image")}
+              className="border rounded p-2 text-sm"
+            />
+            {form.image && (
+              <img
+                src={form.image}
+                alt="Preview"
+                className="mt-2 w-32 h-32 object-cover rounded"
+                onError={(e) => (e.currentTarget.style.display = "none")}
+              />
+            )}
+          </div>
+
+          {/* Featured */}
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              checked={form.isFeatured}
+              onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })}
+              id="isFeatured"
+              className="h-4 w-4"
+            />
+            <label htmlFor="isFeatured" className="text-sm text-gray-700">
+              Featured Recipe
+            </label>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="bg-orange-500 text-white font-semibold rounded py-2 hover:bg-orange-600"
+          >
+            {initialData ? "Update Recipe" : "Add Recipe"}
+          </button>
+        </div>
+      </section>
+    </form>
+  );
+}
