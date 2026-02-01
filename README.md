@@ -45,14 +45,14 @@ The application will be available at `http://localhost:3000`
 
 ## Screenshots / GIFs
 
-#### 1. Recipe Creation
-![Recipe Creation](assets/gifs/create-recipe.gif)
+#### 1. Recipe Filter
+![Recipe Filter](assets/gifs/FilterFeature.gif)
 
-#### 2. Shopping List Aggregation
-![Shopping List](assets/gifs/shopping-list.gif)
+#### 2. Shopping List 
+![Shopping List](assets/gifs/ShoppingList.gif)
 
 #### 3. Toast Feedback
-![Toast](assets/gifs/dark-mode.gif)
+![Toast](assets/gifs/Toast.gif)
 
 
 ## Tech Stack
