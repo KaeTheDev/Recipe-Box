@@ -45,9 +45,9 @@ export default function CuisineCard({
 
       {/* Text */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-3 text-center">
-        <span className="text-white font-semibold text-sm sm:text-base line-clamp-1">
+        <h2 className="text-white font-semibold text-sm sm:text-base line-clamp-1">
           {cuisine}
-        </span>
+        </h2>
         <span className="text-white/80 text-xs sm:text-sm">
           {count} recipe{count !== 1 && "s"}
         </span>
