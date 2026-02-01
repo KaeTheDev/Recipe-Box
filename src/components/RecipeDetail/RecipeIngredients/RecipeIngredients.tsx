@@ -32,7 +32,7 @@ export default function RecipeIngredients({
       </p>
 
       {/* Ingredients List */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" aria-live="polite">
         {recipe.ingredients.map((ingredient, idx) => {
           let displayQuantity: string | number | null = null;
 
@@ -40,7 +40,6 @@ export default function RecipeIngredients({
             const scaled = ingredient.quantity * factor;
             displayQuantity = formatQuantity(scaled);
           } else if (typeof ingredient.quantity === "string") {
-            // leave string quantities as-is (e.g., "1 pinch")
             displayQuantity = ingredient.quantity;
           }
 
@@ -50,7 +49,11 @@ export default function RecipeIngredients({
               <span className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-orange-500 text-white text-xs font-bold">
                 {idx + 1}
               </span>
-              <p className="text-sm sm:text-base text-gray-700">
+
+              <p
+                tabIndex={0}
+                className="text-sm sm:text-base text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded"
+              >
                 {ingredient.item}
                 {displayQuantity !== null &&
                   `: ${displayQuantity} ${ingredient.unit}`}
