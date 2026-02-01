@@ -28,6 +28,7 @@ export default function CookingModeHeader({
         <button
           onClick={onBack}
           className="p-2 rounded-full hover:bg-gray-100 transition"
+          aria-label="Go back"
         >
           <ArrowLeft size={20} />
         </button>
@@ -43,13 +44,22 @@ export default function CookingModeHeader({
               ? "bg-green-500 text-white"
               : "bg-gray-200 text-gray-700"
           }`}
+          aria-pressed={showIngredients}
+          aria-label={`Ingredients ${showIngredients ? "shown" : "hidden"}`}
         >
           Ingredients
         </button>
       </div>
 
       <div className="flex flex-col gap-1">
-        <div className="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          className="relative w-full h-2 bg-gray-200 rounded-full overflow-hidden"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progressPercent}
+          aria-label={`Recipe progress: Step ${currentStep + 1} of ${totalSteps}, ${completedSteps} completed`}
+        >
           <div
             className="h-2 bg-green-500 rounded-full transition-all"
             style={{ width: `${progressPercent}%` }}

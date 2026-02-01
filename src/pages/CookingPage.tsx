@@ -53,7 +53,7 @@ export default function CookingPage() {
         recipeName={recipe.name}
         totalSteps={recipe.instructions.length}
         completedSteps={numCompleted}
-        currentStep={currentStep + 1} // 1-based for display
+        currentStep={currentStep} // 1-based for display
         showIngredients={showIngredients}
         onBack={() => navigate(-1)}
         onToggleIngredients={() => setShowIngredients((prev) => !prev)}
