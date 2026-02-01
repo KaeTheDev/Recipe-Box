@@ -46,13 +46,13 @@ The application will be available at `http://localhost:3000`
 ## Screenshots / GIFs
 
 #### 1. Recipe Filter
-![Recipe Filter](assets/gifs/FilterFeature.gif)
+![Recipe Filter](/src/assets/gifs/FilterFeature.gif)
 
 #### 2. Shopping List 
-![Shopping List](assets/gifs/ShoppingList.gif)
+![Shopping List](/src/assets/gifs/ShoppingList.gif)
 
 #### 3. Toast Feedback
-![Toast](assets/gifs/Toast.gif)
+![Toast](/src/assets/gifs/Toast.gif)
 
 
 ## Tech Stack
