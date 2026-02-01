@@ -15,13 +15,13 @@ export default function AllStepsList({
     <section className="bg-white shadow-md rounded-lg p-4 flex flex-col gap-3">
       <h2 className="text-lg font-semibold">All Steps</h2>
 
-      <div className="flex flex-col gap-2">
+      <ol className="flex flex-col gap-2" aria-label="Recipe Steps">
         {steps.map((stepText, idx) => {
           const isCompleted = completedStepsArr[idx];
           const isCurrent = idx === currentStep;
 
           return (
-            <div
+            <li
               key={idx}
               className={`flex items-center gap-3 p-2 rounded-md transition
                 ${
@@ -31,6 +31,8 @@ export default function AllStepsList({
                     ? "bg-orange-50 border border-orange-400"
                     : "bg-gray-50 text-gray-600"
                 }`}
+              aria-current={isCurrent ? "step" : undefined}
+              tabIndex={0} // keyboard focusable
             >
               {/* Step number badge / checkmark */}
               <div
@@ -42,16 +44,17 @@ export default function AllStepsList({
                       ? "bg-orange-500"
                       : "bg-gray-400"
                   }`}
+                aria-hidden="true"
               >
                 {isCompleted ? <Check size={14} /> : idx + 1}
               </div>
 
               {/* Step text */}
               <p className="text-sm">{stepText}</p>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ol>
     </section>
   );
 }
