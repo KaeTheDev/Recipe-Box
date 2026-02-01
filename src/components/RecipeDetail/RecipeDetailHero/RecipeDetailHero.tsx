@@ -1,4 +1,5 @@
 import type { RecipeComponentProps } from "../../../types/RecipeProps";
+import DefaultRecipeImage from "../../../assets/DefaultRecipeImage.png";
 
 export default function RecipeDetailHero({ recipe }: RecipeComponentProps) {
   if (!recipe) return null;
@@ -8,7 +9,7 @@ export default function RecipeDetailHero({ recipe }: RecipeComponentProps) {
       {/* Hero Image */}
       <img
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src={recipe.image || "/fallback-image.png"}
+        src={recipe.image || DefaultRecipeImage}
         alt={recipe.name}
       />
 

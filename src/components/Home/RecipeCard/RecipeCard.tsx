@@ -1,5 +1,5 @@
 import { Clock, ChefHat, Flame, Heart } from "lucide-react";
-import MacandCheese from "../../../assets/MacandCheese.png";
+import DefaultRecipeImage from "../../../assets/DefaultRecipeImage.png";
 import { Link } from "react-router-dom";
 import type { RecipeComponentProps } from "../../../types/RecipeProps";
 import { toggleFavorite } from "../../../utils/recipes";
@@ -62,7 +62,7 @@ export default function RecipeCard({ recipe }: RecipeComponentProps) {
         {/* Image */}
         <div className="overflow-hidden">
           <img
-            src={recipe.image || MacandCheese}
+            src={recipe.image || DefaultRecipeImage}
             alt={recipe.name}
             className="
               w-full h-40 object-cover
