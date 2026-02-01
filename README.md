@@ -142,7 +142,6 @@ Project root
   Dockerfile
 
 ```
-
 ## Accessibility (a11y)
 - Ensured sufficient contrast for text and interactive elements
 - Focus states are visible on buttons and links
@@ -177,11 +176,12 @@ These assumptions directly informed technology choices, feature prioritization, 
  - **Recipe Suggestions**: Omitted because meaningful suggestions based on available ingredients would require more advanced matching logic and/or backend support. This is better suited for a later iteration.
  
  - **Personal Statistics**: Deferred due to the need for user accounts and historical usage tracking, which would significantly expand scope into full-stack territory.
- 
- - **Recipe Sharing**: Shareable URLs could not be reliably implemented using HashRouter with GitHub Pages within the time constraint. Instead, the UI communicates intent via a "Coming Soon" toast.
 
-- **Dark Mode**: Considered and designed for accessibility and contrast, but implementation (Tailwind JS toggle + preference syncing) was beyond the timeline. Fully supported in future updates.
+ - **Recipe Sharing**: Shareable URLs could not be reliably implemented with HashRouter. Attempted locally and with GitHub Pages, but routing and hosting limitations prevented a working solution. Instead, the UI communicates intent via a "Coming Soon" toast, preserving UX clarity. 
 
+- **Dark Mode**: This feature was not planned in the initial design. Implementing a fully functional dark mode using Tailwind CSS (JS toggle + preference syncing) proved more complex than anticipated. Accessible color choices and contrast were considered in design, but implementation is deferred to future updates.
+
+- **Routing after Adding/Editing a Recipe**: Locally, the app navigates to the recipe detail page after adding or editing a recipe. On GitHub Pages, due to static hosting and routing limitations, it currently redirects to the home page. This ensures the app still functions, but a full single-page navigation experience would require a backend or a hosting platform that supports client-side routing.
 
 ### URL Sharing
 
