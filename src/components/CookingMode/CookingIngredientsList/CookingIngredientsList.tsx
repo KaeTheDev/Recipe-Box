@@ -32,45 +32,46 @@ export default function CookingIngredientsList({
       </div>
 
       {/* Ingredients List */}
-      <div className="overflow-y-auto flex flex-col gap-2 pr-1">
+      <ul className="overflow-y-auto flex flex-col gap-2 pr-1" aria-label="Cooking Ingredients">
         {ingredients.map((ingredient, index) => {
           const isChecked = checked[ingredient.item] ?? false;
 
           return (
-            <button
-              key={index}
-              onClick={() => toggleIngredient(ingredient.item)}
-              className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50 transition"
-            >
-              {/* Left: Checkbox + Name */}
-              <div className="flex items-center gap-3">
-                {isChecked ? (
-                  <CheckSquare size={18} className="text-green-500" />
-                ) : (
-                  <Square size={18} className="text-gray-400" />
+            <li key={index}>
+              <button
+                onClick={() => toggleIngredient(ingredient.item)}
+                className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 px-3 py-2 hover:bg-gray-50 transition"
+                aria-pressed={isChecked}
+                aria-label={`${isChecked ? "Uncheck" : "Check"} ingredient: ${ingredient.item}`}
+              >
+                {/* Left: Checkbox + Name */}
+                <div className="flex items-center gap-3">
+                  {isChecked ? (
+                    <CheckSquare size={18} className="text-green-500" aria-hidden="true" />
+                  ) : (
+                    <Square size={18} className="text-gray-400" aria-hidden="true" />
+                  )}
+
+                  <span
+                    className={`text-sm ${
+                      isChecked ? "line-through text-gray-400" : "text-gray-800"
+                    }`}
+                  >
+                    {ingredient.item}
+                  </span>
+                </div>
+
+                {/* Right: Quantity */}
+                {(ingredient.quantity || ingredient.unit) && (
+                  <span className="text-sm text-gray-500 whitespace-nowrap">
+                    {ingredient.quantity} {ingredient.unit}
+                  </span>
                 )}
-
-                <span
-                  className={`text-sm ${
-                    isChecked
-                      ? "line-through text-gray-400"
-                      : "text-gray-800"
-                  }`}
-                >
-                  {ingredient.item}
-                </span>
-              </div>
-
-              {/* Right: Quantity */}
-              {(ingredient.quantity || ingredient.unit) && (
-                <span className="text-sm text-gray-500 whitespace-nowrap">
-                  {ingredient.quantity} {ingredient.unit}
-                </span>
-              )}
-            </button>
+              </button>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </section>
   );
 }
