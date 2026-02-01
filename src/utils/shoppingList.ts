@@ -104,40 +104,36 @@ export function getShoppingListStats(): ShoppingListStats {
     return { total, checked, unchecked, percentComplete };
   }
 
-
   // Aggregate Shopping List
-  export function getAggregatedShoppingList(): GroupedItems {
-    const items = getShoppingList();
-    const aggregated: Record<string, ShoppingListItem & { recipes: string[] }> = {};
-  
-    items.forEach(item => {
-      // Key = same item name + unit (so "2 cups milk" + "1 cup milk" combine)
-      const key = `${item.item.toLowerCase().trim()}-${item.unit.toLowerCase().trim()}`;
-      
-      if (aggregated[key]) {
-        // Sum quantities
-        const existingQty = Number(aggregated[key].quantity) || 0;
-        const newQty = Number(item.quantity) || 0;
-        aggregated[key].quantity = existingQty + newQty;
-        
-        // Track which recipes need this ingredient
-        if (!aggregated[key].recipes.includes(item.recipeName)) {
-          aggregated[key].recipes.push(item.recipeName);
-        }
-      } else {
-        // First time seeing this ingredient
-        aggregated[key] = { ...item, recipes: [item.recipeName] };
+/// Combine duplicate ingredients and group by category
+export function getAggregatedShoppingList(): GroupedItems {
+  const items = getShoppingList();
+
+  // Aggregate items by name + unit
+  const aggregated: Record<string, ShoppingListItem & { recipes: string[] }> = {};
+
+  items.forEach(item => {
+    const key = `${item.item.toLowerCase().trim()}-${item.unit.toLowerCase().trim()}`;
+
+    if (aggregated[key]) {
+      // Add quantities and track which recipes use this ingredient
+      aggregated[key].quantity = Number(aggregated[key].quantity) + Number(item.quantity);
+      if (!aggregated[key].recipes.includes(item.recipeName)) {
+        aggregated[key].recipes.push(item.recipeName);
       }
-    });
-  
-    // Group by category
-    const grouped: GroupedItems = {};
-    Object.values(aggregated).forEach(item => {
-      const category = item.category || "Other";
-      if (!grouped[category]) grouped[category] = [];
-      grouped[category].push(item);
-    });
-  
-    return grouped;
-  }
-  
+    } else {
+      // First time seeing this ingredient
+      aggregated[key] = { ...item, recipes: [item.recipeName] };
+    }
+  });
+
+  // Group by category for easier UI display
+  const grouped: GroupedItems = {};
+  Object.values(aggregated).forEach(item => {
+    const category = item.category || "Other";
+    if (!grouped[category]) grouped[category] = [];
+    grouped[category].push(item);
+  });
+
+  return grouped;
+}
