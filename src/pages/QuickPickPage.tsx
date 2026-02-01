@@ -1,39 +1,56 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getRecipes } from "../utils/recipes";
 import RecipeCard from "../components/Home/RecipeCard/RecipeCard";
+import RecipeCardSkeleton from "../components/Shared/RecipeCardSkeleton/RecipeCardSkeleton";
 import { Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import type { Recipe } from "../types/Recipe";
 
 export default function QuickPicksPage() {
   const { type } = useParams<{ type: string }>();
-  const navigate = useNavigate();
-  const recipes = getRecipes();
 
-  // Filter recipes based on type
-  let filtered = recipes;
-  let title = "";
 
-  if (type === "under-30") {
-    filtered = recipes.filter(
-      r => r.prepTime + r.cookTime <= 30
-    );
-    title = "Under 30 Minutes";
-  } else if (type === "beginner") {
-    filtered = recipes.filter(r => r.difficulty === "Easy");
-    title = "Beginner Friendly";
-  } else if (type === "favorites") {
-    filtered = recipes.filter(r => r.isFavorite);
-    title = "Favorites";
-  } else if (type === "vegetarian") {
-    filtered = recipes.filter(
-      r => r.tags?.some(tag => tag.toLowerCase() === "vegetarian")
-    );
-    title = "Vegetarian";
-  } else if (type === "healthy") {
-    filtered = recipes.filter(
-      r => r.tags?.some(tag => tag.toLowerCase() === "healthy")
-    );
-    title = "Healthy";
-  }
+  // Store filtered recipes
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipe[]>([]);
+  const [title, setTitle] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      setIsLoading(true);
+      const allRecipes = await Promise.resolve(getRecipes()); // simulate async
+
+      let filtered = allRecipes;
+      let titleText = "";
+
+      if (type === "under-30") {
+        filtered = allRecipes.filter(r => r.prepTime + r.cookTime <= 30);
+        titleText = "Under 30 Minutes";
+      } else if (type === "beginner") {
+        filtered = allRecipes.filter(r => r.difficulty === "Easy");
+        titleText = "Beginner Friendly";
+      } else if (type === "favorites") {
+        filtered = allRecipes.filter(r => r.isFavorite);
+        titleText = "Favorites";
+      } else if (type === "vegetarian") {
+        filtered = allRecipes.filter(r =>
+          r.tags?.some(tag => tag.toLowerCase() === "vegetarian")
+        );
+        titleText = "Vegetarian";
+      } else if (type === "healthy") {
+        filtered = allRecipes.filter(r =>
+          r.tags?.some(tag => tag.toLowerCase() === "healthy")
+        );
+        titleText = "Healthy";
+      }
+
+      setFilteredRecipes(filtered);
+      setTitle(titleText);
+      setIsLoading(false);
+    };
+
+    fetchRecipes();
+  }, [type]);
 
   return (
     <>
@@ -44,36 +61,31 @@ export default function QuickPicksPage() {
             <Check size={24} className="text-green-500" />
             <h2 className="text-3xl font-semibold">{title}</h2>
           </div>
-          <p className="text-sm text-gray-600">
-            {filtered.length} recipe{filtered.length !== 1 && "s"}
-          </p>
+          {!isLoading && (
+            <p className="text-sm text-gray-600">
+              {filteredRecipes.length} recipe{filteredRecipes.length !== 1 && "s"}
+            </p>
+          )}
         </div>
       </section>
 
-      {/* Recipes List or Empty State */}
-      <section className="flex justify-center px-4">
-        {filtered.length === 0 ? (
-          <div className="flex flex-col items-center text-center mt-10 gap-4 px-6 py-8 bg-white rounded-lg shadow-md max-w-md w-full">
-            <Check size={36} className="text-green-500" />
-            <h3 className="text-2xl font-semibold">No recipes found</h3>
-            <p className="text-sm text-gray-600">
-              Sorry, we couldn't find any recipes matching this category. Try browsing other quick picks or check back later!
-            </p>
-            <button
-              onClick={() => navigate("/")}
-              className="bg-green-500 py-3 px-6 text-white rounded-md hover:bg-green-600 transition"
-            >
-              Browse Recipes
-            </button>
-          </div>
-        ) : (
-          // ✅ MATCHES FAVORITES PAGE GRID EXACTLY
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mt-6">
-            {filtered.map(recipe => (
-              <RecipeCard key={recipe.id} recipe={recipe} />
-            ))}
-          </div>
-        )}
+      {/* Recipe Cards */}
+      <section className="py-10 px-4 flex justify-center">
+        <div className="w-full max-w-6xl">
+          {isLoading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {Array(4).fill(0).map((_, i) => <RecipeCardSkeleton key={i} />)}
+            </div>
+          ) : filteredRecipes.length === 0 ? (
+            <p className="text-gray-500">No recipes found.</p>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {filteredRecipes.map(recipe => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          )}
+        </div>
       </section>
     </>
   );
