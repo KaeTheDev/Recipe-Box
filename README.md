@@ -74,6 +74,7 @@ The application will be available at `http://localhost:3000`
 TypeScript with React helped enforce clear data contracts and reduced runtime errors as the application grew. Tailwind CSS allowed me to focus on layout, spacing, and responsiveness without slowing development, which was critical given the assessment timeline.
 
 ## Folder Structure
+```
 src/
   assets/
   components/
@@ -139,6 +140,8 @@ Project root
   .gitignore
   docker-compose.yml
   Dockerfile
+
+```
 
 
 # Project root
