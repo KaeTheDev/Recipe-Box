@@ -40,6 +40,7 @@ export default function FeaturedRecipesSection() {
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {isLoading
+          // Visual only so hardcoded
             ? Array(4)
                 .fill(0)
                 .map((_, i) => <RecipeCardSkeleton key={i} />)

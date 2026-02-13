@@ -12,8 +12,11 @@ export default function RecipeIngredients({
 }: RecipeIngredientsProps) {
   if (!recipe) return null;
 
+  // Calculates the factor to multiply
+  // the ingredients by 
   const factor = currentServings / recipe.servings;
 
+  // Round numbers so there are no long decimals like 2.6667
   const formatQuantity = (quantity: number) => {
     const rounded = Math.round(quantity * 10) / 10;
     return rounded;
@@ -58,6 +61,7 @@ export default function RecipeIngredients({
                 {displayQuantity !== null &&
                   `: ${displayQuantity} ${ingredient.unit}`}
                 {ingredient.note && (
+                  // Not being collected in the Add to Recipe Form
                   <span className="text-gray-500 text-xs"> ({ingredient.note})</span>
                 )}
               </p>

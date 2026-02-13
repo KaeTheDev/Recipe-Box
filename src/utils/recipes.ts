@@ -68,6 +68,8 @@ export function toggleFavorite(id: string): void {
 
 // Get only favorites
 export function getFavorites(): Recipe[] {
+  // Go through all recipes
+  // Filter for favorites
   return getRecipes().filter(r => r.isFavorite);
 }
 

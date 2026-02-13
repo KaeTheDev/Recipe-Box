@@ -9,15 +9,24 @@ interface CookingIngredientsListProps {
 export default function CookingIngredientsList({
   ingredients,
 }: CookingIngredientsListProps) {
+
+  // object with a string key, boolean value
+  // "rice": true
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
   const toggleIngredient = (name: string) => {
+    // Update the "checked" state using the previous state
     setChecked((prev) => ({
+        // Copy all previous key-value pairs so nothing else is lost
       ...prev,
+       // Toggle the value for the ingredient that was clicked:
+    // - If it was true, becomes false
+    // - If it was false or undefined, becomes true
       [name]: !prev[name],
     }));
   };
-
+// Keep values that are truthy
+// Get count, store in completedCount
   const completedCount = Object.values(checked).filter(Boolean).length;
   const totalCount = ingredients.length;
 
@@ -34,6 +43,8 @@ export default function CookingIngredientsList({
       {/* Ingredients List */}
       <ul className="overflow-y-auto flex flex-col gap-2 pr-1" aria-label="Cooking Ingredients">
         {ingredients.map((ingredient, index) => {
+          // check if item is true or false
+          // store in isChecked
           const isChecked = checked[ingredient.item] ?? false;
 
           return (

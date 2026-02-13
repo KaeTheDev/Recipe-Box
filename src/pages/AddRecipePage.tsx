@@ -37,7 +37,7 @@ export default function AddRecipe() {
         position: "top-center",
       });
       
-      // Navigate to home
+      // Navigate back to recipe detail page
       navigate(`/recipes/${recipe.id}`);
     }
   };

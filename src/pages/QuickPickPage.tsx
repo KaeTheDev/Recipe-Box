@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import type { Recipe } from "../types/Recipe";
 
 export default function QuickPicksPage() {
+  // type will be under-30, beginner etc.
   const { type } = useParams<{ type: string }>();
 
 

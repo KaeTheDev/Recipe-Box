@@ -18,7 +18,7 @@ export const seedRecipes: Recipe[] = [
       { item: "Guanciale", quantity: 150, unit: "g", category: "Meat" },
       { item: "Eggs", quantity: 4, unit: "whole", category: "Dairy" },
       { item: "Pecorino Romano", quantity: 100, unit: "g", category: "Cheese" },
-      { item: "Black pepper", quantity: "to taste", unit: "", category: "Spice" },
+      { item: "Black pepper", quantity: "1", unit: "tsp", category: "Spice" },
     ],
     instructions: [
       "Bring a large pot of salted water to boil and cook the spaghetti al dente.",

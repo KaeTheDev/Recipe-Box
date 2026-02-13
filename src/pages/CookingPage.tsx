@@ -10,14 +10,17 @@ import AllStepsList from "../components/CookingMode/AllStepsList/AllStepsList";
 import RecipeCompleteModal from "../components/CookingMode/RecipeCompleteModal/RecipeCompleteModal";
 
 export default function CookingPage() {
+  // Get recipe ID from the URL
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // Pull recipe from localStorage
+  // Pull recipe from localStorage by ID
   const recipe = getRecipeById(id ?? "") as Recipe | undefined;
 
   const [showIngredients, setShowIngredients] = useState(true);
   const [currentStep, setCurrentStep] = useState(0);
+  // Array that tracks completion status of each step
+  // Example for 3 steps: [false, false, false]
   const [completedStepsArr, setCompletedStepsArr] = useState<boolean[]>(
     recipe ? Array(recipe.instructions.length).fill(false) : []
   );
@@ -30,8 +33,9 @@ export default function CookingPage() {
   }
 
   const handleCompleteStep = () => {
-    // Mark current step as completed
+    // Create a copy of the completion array 
     const newCompleted = [...completedStepsArr];
+     // Mark the current step as completed
     newCompleted[currentStep] = true;
     setCompletedStepsArr(newCompleted);
 
@@ -44,6 +48,7 @@ export default function CookingPage() {
     }
   };
 
+    // Count how many steps are completed (used for progress display)
   const numCompleted = completedStepsArr.filter(Boolean).length;
 
   return (

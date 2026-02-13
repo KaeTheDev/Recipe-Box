@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import type { Recipe } from "../types/Recipe";
 
 export default function CuisineRecipesPage() {
+  // controls the value after the ? in URL
   const [searchParams] = useSearchParams();
   const cuisine = searchParams.get("cuisine");
 
@@ -21,6 +22,8 @@ export default function CuisineRecipesPage() {
       const allRecipes = await Promise.resolve(getRecipes()); // simulate async
       setRecipes(allRecipes);
       setFilteredRecipes(
+        // if cuisine exists, filter all recipes with that cuisine
+        // otherwise, return all recipes
         cuisine ? allRecipes.filter(r => r.cuisine === cuisine) : allRecipes
       );
       setIsLoading(false);
@@ -31,6 +34,8 @@ export default function CuisineRecipesPage() {
   
 
   // Filter recipes whenever cuisine or recipes change
+  // watcher: checking to see if something changed after
+  // the first filter ☝🏾
   useEffect(() => {
     setFilteredRecipes(
       cuisine

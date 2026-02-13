@@ -7,6 +7,9 @@ import { addRecipeToShoppingList, isRecipeInShoppingList, removeRecipeFromShoppi
 
 export default function RecipeActions({ recipe }: RecipeComponentProps) {
   const navigate = useNavigate();
+  // Lazy Initialization: tells React to execute that function only 
+  // once during the component's initial render, preventing unnecessary 
+  // computations on every re-render
   const [inList, setInList] = useState(() => isRecipeInShoppingList(recipe.id));
   const [showFeedback, setShowFeedback] = useState(false);
 

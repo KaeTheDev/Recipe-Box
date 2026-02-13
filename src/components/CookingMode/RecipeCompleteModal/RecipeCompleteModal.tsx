@@ -15,8 +15,12 @@ export default function RecipeCompleteModal({
   onClose,
 }: RecipeCompleteModalProps) {
   const navigate = useNavigate();
+  // Ref for the modal container to handle focus trap
+  // to query the modal's buttons and manage keyboard focus
   const modalRef = useRef<HTMLDivElement>(null);
 
+  // get all recipes, find at least one
+  // where the id matches & is favorited
   const isFavorited = getRecipes().some(
     (r) => r.id === recipe.id && r.isFavorite
   );
@@ -30,8 +34,9 @@ export default function RecipeCompleteModal({
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  // Focus trap
+ // Focus trap: keeps keyboard focus inside the modal for accessibility
   useEffect(() => {
+     // Get all focusable buttons inside the modal
     const focusableElements = modalRef.current?.querySelectorAll<
       HTMLButtonElement
     >("button");
@@ -44,13 +49,13 @@ export default function RecipeCompleteModal({
       if (e.key !== "Tab") return;
 
       if (e.shiftKey) {
-        // Shift + Tab
+         // If Shift+Tab pressed on first element, loop focus to last element
         if (document.activeElement === firstEl) {
           e.preventDefault();
           lastEl.focus();
         }
       } else {
-        // Tab
+       // If Tab pressed on last element, loop focus to first element
         if (document.activeElement === lastEl) {
           e.preventDefault();
           firstEl.focus();
@@ -61,10 +66,11 @@ export default function RecipeCompleteModal({
     window.addEventListener("keydown", handleTab);
     // focus first button initially
     firstEl.focus();
-
+     // Clean up the listener when modal unmounts
     return () => window.removeEventListener("keydown", handleTab);
   }, []);
 
+    // Favorite button handler
   const handleFavorite = () => {
     if (!isFavorited) {
       toggleFavorite(recipe.id);
@@ -73,6 +79,7 @@ export default function RecipeCompleteModal({
     }
   };
 
+    // Placeholder share feature using a toast notification
   const handleShare = () => {
     toast("Share feature coming soon!", {
       duration: 3000,
@@ -85,6 +92,7 @@ export default function RecipeCompleteModal({
     onClose();
   };
 
+   // Close modal if user clicks outside the modal content (backdrop click)
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };

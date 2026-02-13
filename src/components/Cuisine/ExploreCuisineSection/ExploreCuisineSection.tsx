@@ -21,6 +21,8 @@ export default function ExploreCuisineSection() {
     fetchRecipes();
   }, []);
 
+  // Using reduce method to loop over recipes & group by cuisines
+  // Counts how many recipes belong to each cuisine
   const cuisineMap = recipes.reduce<Record<string, number>>((acc, recipe) => {
     acc[recipe.cuisine] = (acc[recipe.cuisine] || 0) + 1;
     return acc;

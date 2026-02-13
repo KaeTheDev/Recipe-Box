@@ -19,6 +19,7 @@ export default function CookingModeHeader({
   onBack,
   onToggleIngredients,
 }: CookingModeHeaderProps) {
+
   const progressPercent =
     totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 

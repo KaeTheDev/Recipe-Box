@@ -12,6 +12,8 @@ export default function RecipeDetailPage() {
   const { id } = useParams();
   const recipe = getRecipes().find((r) => r.id === id) as Recipe | undefined;
 
+  // Keeping track of servings
+  // Passing it down to necessary components
   const [currentServings, setCurrentServings] = useState(
     recipe?.servings ?? 1
   );

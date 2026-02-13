@@ -32,14 +32,22 @@ export default function AllRecipesSection() {
      REAL-TIME SEARCH + FILTERING
   -----------------------------------------*/
   useEffect(() => {
+    // Spread recipes so we start with everything
     let result = [...recipes];
 
+    // Remove whitespace from search
     if (search.trim()) {
+      // Convert search to lowercase
       const q = search.toLowerCase();
+      // filter through the results 
       result = result.filter(
         r =>
+          // takes the name and cuisine & converts to lowercase
+        // then checks to see if it includes the query/search
           r.name.toLowerCase().includes(q) ||
           r.cuisine.toLowerCase().includes(q) ||
+          // tags are optional, .some checks
+          // if at least one tag exists
           r.tags?.some(tag => tag.toLowerCase().includes(q))
       );
     }
